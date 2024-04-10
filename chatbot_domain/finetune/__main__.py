@@ -43,7 +43,6 @@ if __name__ == '__main__' :
     parser.add_argument('--store-dataset', type=str, help='Store parsed dataSet to string location', default=None)
     parser.add_argument('--load-dataset', type=str, help="Loads a tokenized dataset from disk", default=None)
     parser.add_argument('--name', type=str, help="The name of the model we want to fineTune", default="google/gemma-2b")
-    parser.add_argument('--hf-token', type= str, help="The HuggingFace access token", default="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")
     parser.add_argument('--training-output', type=str, help="The training output directory", default="./training")
     parser.add_argument('--batch-size', type= int, help="The batchsize to train the model in", default=32)
     parser.add_argument('--epoch', type=int, help="Number of epochs to train on", default=3)
@@ -67,7 +66,8 @@ if __name__ == '__main__' :
     dataSetStorePath = args.store_dataset
     dateSetLoadPath = args.load_dataset
     Settings.modelName = args.name
-    Settings.accesToken = args.hf_token
+    from chatbot_domain.secrets import HUGGINGFACE_ACCESS
+    Settings.accesToken = HUGGINGFACE_ACCESS
     Settings.trainingOutput = args.training_output
     Settings.batchSize = args.batch_size
     Settings.epochs = args.epoch
