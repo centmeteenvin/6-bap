@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from chatbot_domain import logger
 from chatbot_domain.rag.dpr import DPR
+from chatbot_domain.data import saveDataset
 from datasets import Dataset
 
 
@@ -32,11 +33,8 @@ class VectorRetriever(Retriever):
         self._dataset.add_faiss_index(column='embeddings')
         
         logger.info("Saving modified dataset")
-        self._dataset.save_faiss_index('embeddings', datasetLocation + '/faiss.index')
-        self._dataset.drop_index('embeddings')
-        self._dataset.save_to_disk(datasetLocation)
-        self._dataset.load_faiss_index('embeddings', datasetLocation + '/faiss.index')
-        
+        saveDataset(self._dataset, datasetLocation, 'embeddings')
+ 
     def _encodeDataset(self) -> None:
         self._dataset.add_column('embeddings', self._dpr.encodeContext(self._dataset['sentence']))
         

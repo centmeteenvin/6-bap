@@ -62,6 +62,20 @@ def createDataSet(data: list[tuple[Paragraph, list[Sentence]]], evaluationShare:
         'evaluation': _dataEntriesToDataSet(evaluationData)
     })
 
+def saveDatasetDict(data: DatasetDict, location: str) -> None:
+    """Saves a dataset dict object to a location, it should not contain any indices"""
+    data.save_to_disk(location)
+    
+def saveDataset(data: Dataset, location: str, index : str | None = None) -> None:
+    """
+    Save a dataset object to a location, if it is indexed, the index parameter should be the column name of the index.
+    """
+    if index is not None:
+        data.save_faiss_index(index, location + "/faiss.index")
+        data.drop_index(index)
+    data.save_to_disk(location)
+    if index is not None:
+        data.load_faiss_index(index, location + "/faiss.index")
     
 def loadDataSetFromDisk(filePath: str) -> DatasetDict:
     logger.info(f"Loading dataset from {filePath}")
