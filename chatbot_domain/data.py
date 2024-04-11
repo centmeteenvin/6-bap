@@ -3,7 +3,7 @@ from copy import deepcopy
 from random import shuffle
 from pypdf import PdfReader, PageObject
 from . import logger
-from datasets import Dataset, DatasetDict
+from datasets import Dataset, DatasetDict, load_from_disk
 
 Paragraph = str
 Sentence = str
@@ -83,4 +83,4 @@ def loadDataSetDictFromDisk(filePath: str) -> DatasetDict:
 
 def loadDataSetFromDisk(filepath: str) -> Dataset:
     logger.info(f"Loading dataset from {filepath}")
-    return Dataset.load_from_disk(filepath)
+    return load_from_disk(filepath)
