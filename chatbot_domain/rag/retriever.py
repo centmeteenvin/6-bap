@@ -36,7 +36,7 @@ class VectorRetriever(Retriever):
         saveDataset(self._dataset, datasetLocation, 'embeddings')
  
     def _encodeDataset(self) -> None:
-        self._dataset.add_column('embeddings', self._dpr.encodeContext(self._dataset['sentence']))
+        self._dataset.map(lambda example: {'embeddings': self._dpr.encodeContext(example['sentence'])})
         
     def getContext(self, question: str, samples: int = 10) -> list[str]:
         questionEmbedding = self._dpr.encodeQuestion(question)

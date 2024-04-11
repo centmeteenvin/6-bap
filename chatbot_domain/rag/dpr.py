@@ -32,7 +32,13 @@ class FacebookDPR(DPR):
         self._questionEncoder: DPRQuestionEncoder = DPRQuestionEncoder.from_pretrained("facebook/dpr-question_encoder-single-nq-base", device_map = 'cuda')
         self._questionTokenizer : DPRQuestionEncoderTokenizer = DPRQuestionEncoderTokenizer.from_pretrained("facebook/dpr-question_encoder-single-nq-base", device_map = 'cuda')
         
-    def encodeContext(self, context) -> numpy.array:
+    def encodeContext(self, context: list[str]) -> numpy.array:
+        # encoded = []
+        # for item in context:
+        #     tokenizedContext = self._contextTokenizer(item, return_tensors='pt', truncation=True).to('cuda')
+        #     encodedContext = self._contextEncoder(**tokenizedContext)[0][0]
+        #     encoded.append(encodedContext.cpu().detach().numpy())
+        # return encoded
         return self._contextEncoder(**self._contextTokenizer(context, return_tensors = "pt", truncation=True).to('cuda'))[0][0].cpu().detach().numpy()
 
     def encodeQuestion(self, question) -> numpy.array:
