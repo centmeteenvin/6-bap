@@ -30,9 +30,9 @@ class Tokenizer:
         
     def _encode(self, data: Dataset) -> Dataset:
         if self.max_length is None:
-             tokenizedData =  self.tokenizer(data["text"], padding=True, truncation=True, return_tensors='pt')
+             tokenizedData =  self.tokenizer(data["sentence"], padding=True, truncation=True, return_tensors='pt')
         else:
-             tokenizedData = self.tokenizer(data["text"], padding="max_length", truncation=True, return_tensors='pt', max_length=self.max_length)
+             tokenizedData = self.tokenizer(data["sentence"], padding="max_length", truncation=True, return_tensors='pt', max_length=self.max_length)
         tokenizedData['labels'] = tokenizedData['input_ids'].clone()
         return tokenizedData
     

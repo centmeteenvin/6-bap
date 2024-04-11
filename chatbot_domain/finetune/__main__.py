@@ -30,9 +30,7 @@ def main(
         logger.info(f"dataset: {dataSet}")
         trainer = Training(model, dataSet)
         trainer.train()
-    if Settings.shouldChat:
-        chatbot = ChatBot(model, Tokenizer.get())
-        chatbot.run()
+
     
 
         
