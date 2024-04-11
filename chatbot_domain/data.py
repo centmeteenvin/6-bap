@@ -77,6 +77,10 @@ def saveDataset(data: Dataset, location: str, index : str | None = None) -> None
     if index is not None:
         data.load_faiss_index(index, location + "/faiss.index")
     
-def loadDataSetFromDisk(filePath: str) -> DatasetDict:
-    logger.info(f"Loading dataset from {filePath}")
+def loadDataSetDictFromDisk(filePath: str) -> DatasetDict:
+    logger.info(f"Loading dataset dict from {filePath}")
     return DatasetDict.load_from_disk(filePath)
+
+def loadDataSetFromDisk(filepath: str) -> Dataset:
+    logger.info(f"Loading dataset from {filepath}")
+    return Dataset.load_from_disk(filepath)

@@ -1,6 +1,6 @@
 import argparse
 import os
-from chatbot_domain.data import parseData, createDataSet, loadDataSetFromDisk
+from chatbot_domain.data import parseData, createDataSet, loadDataSetDictFromDisk
 from chatbot_domain import logger
 from . import *
 
@@ -36,7 +36,7 @@ def main():
         logger.error("You need to give the --load-dataset argument")
         exit()
     else:
-        dataset = loadDataSetFromDisk(args.load_dataset)
+        dataset = loadDataSetDictFromDisk(args.load_dataset)
         logger.info("loading indices into dataset")
         dataset["train"].load_faiss_index('embeddings',file= f"{args.load_dataset}/faiss.index")
     os.environ['KMP_DUPLICATE_LIB_OK'] = "TRUE"

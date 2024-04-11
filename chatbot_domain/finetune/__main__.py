@@ -1,6 +1,6 @@
 import argparse, logging
 from chatbot_domain import logger, ch
-from chatbot_domain.data import parseData, createDataSet, loadDataSetFromDisk
+from chatbot_domain.data import parseData, createDataSet, loadDataSetDictFromDisk
 from chatbot_domain.transformers.tokenizer import Tokenizer
 from chatbot_domain.settings import Settings
 from chatbot_domain.transformers.model import Model
@@ -26,7 +26,7 @@ def main(
                 dataSet.save_to_disk(dataSetStorePath)
         else:
             logger.info("Loading dataset from disk")
-            dataSet = loadDataSetFromDisk(dataSetLoadPath)
+            dataSet = loadDataSetDictFromDisk(dataSetLoadPath)
         logger.info(f"dataset: {dataSet}")
         trainer = Training(model, dataSet)
         trainer.train()
