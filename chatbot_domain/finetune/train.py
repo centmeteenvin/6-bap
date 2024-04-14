@@ -11,7 +11,7 @@ class Training:
         self._trainingArgs = self._argsCreator()
         self.model = model
         self.dataSet = dataSet
-        self.trainer = self._trainerCreator
+        self.trainer = self._trainerCreator()
         
     def _argsCreator(self) ->  TrainingArguments:
         return TrainingArguments(

@@ -8,6 +8,7 @@ from chatbot_domain.rag.__main__ import Retriever
 from chatbot_domain.settings import Settings
 from chatbot_domain.transformers.model import Model
 from chatbot_domain.transformers.tokenizer import Tokenizer
+from shutil import get_terminal_size
 
 
 class ChatBot(ABC):
@@ -49,12 +50,12 @@ class ChatBot(ABC):
         """
         logger.debug("The final conversation object is:")
         return self._askConversation(conversation)
+
     
     def _representAnswer(self, answer: str) -> str:
         """
         Returns a string representation of the answer
         """
-        from os import get_terminal_size
         return f"""
 {get_terminal_size().columns * '-'}
 {self.getName} : {answer}
@@ -140,7 +141,7 @@ class RAGChatBot(ChatBot):
             
 class ModelChatbot(ChatBot):
     def __init__(self, model: Model, tokenizer: Tokenizer) -> None:
-        super.__init__()
+        super().__init__()
         self.model = model
         self.tokenizer = tokenizer
         self.tokenizer.tokenizer.padding_side = 'left'
