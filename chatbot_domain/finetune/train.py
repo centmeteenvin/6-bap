@@ -58,6 +58,7 @@ class Training:
             logger.info(f"Saving model to {Settings.modelSavePath}")
             self.trainer.save_model(Settings.modelSavePath)
         except Exception as e:
+            logger.debug(f'encounter {e} while training')
             if Settings.batchSize != 1:
                 Settings.batchSize = int(Settings.batchSize/2)
                 logger.error(f"Problem during training, reducing batch size to {Settings.batchSize}")
