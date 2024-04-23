@@ -66,11 +66,13 @@ class NLPTestSubject(TestSubject):
                         logger.error(f"Got an index error meaning the option could not be extracted from the answer")
                         continue
             else:
+                if answer[0].isdigit():
+                    option = int(answer[0])
                 if recursion_level < 3:
                     logger.error("Reprompting the subject.")
                     return self.askQuestion(question, options, recursion_level + 1)
                 else:
-                    logger.error("Max recursion depth reached, will answer with option 4, wrong answers")
+                    logger.error("Max recursion depth reached asking user for correction")
                     print("Question:\n", question, "\noptions:")
                     for option in options:
                         print(option)
