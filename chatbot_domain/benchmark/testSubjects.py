@@ -66,7 +66,7 @@ class NLPTestSubject(TestSubject):
                         logger.error(f"Got an index error meaning the option could not be extracted from the answer")
                         continue
             else:
-                if answer[0].isdigit():
+                if answer.strip()[0].isdigit():
                     option = int(answer[0])
                 if recursion_level < 3:
                     logger.error("Reprompting the subject.")

@@ -19,9 +19,17 @@ class TestScore:
             "isCorrect": isCorrect
         })
         
+    @property
+    def total(self) -> int:
+        return sum([1 if result["isCorrect"] == True else 0 for result in self.results])
+        
+    @property
+    def average(self) -> float:
+        return self.total/len(self.results)
+        
     def save(self, directory: str) -> None:
         """Save the testscore in the given directory under the name {self.subject.getname}-{score}-{datetime}"""
-        score = sum([1 if result["isCorrect"] == True else 0 for result in self.results])
+        score = self.total
         with open(f"{directory}/{self.subject.getName}-{score} out {len(self.results)}-{datetime.datetime.now().strftime('%d-%m-%Y-%H-%M')}.score", 'w') as file:
             file.write(self.__repr__() + '\n')
             for i, result in enumerate(self.results):
@@ -33,7 +41,7 @@ class TestScore:
             file.flush()
         
     def __repr__(self) -> str:
-        overalScore = sum([1 if result["isCorrect"] == True else 0 for result in self.results])
+        overalScore = self.total
         literalScore = 0
         literalCount = 0
         deductionScore = 0
@@ -69,6 +77,8 @@ class TestScore:
         outside domain: {oodScore:10}/{oodCount}        
     {get_terminal_size().columns * '='}
     """
+    
+
 
 class Benchmarker():
     """
