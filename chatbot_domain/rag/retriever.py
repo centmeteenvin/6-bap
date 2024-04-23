@@ -33,7 +33,7 @@ class VectorRetriever(Retriever):
         self._dataset.add_faiss_index(column='embeddings')
         
         logger.info("Saving modified dataset")
-        saveDataset(self._dataset, datasetLocation, 'embeddings')
+        # saveDataset(self._dataset, datasetLocation, 'embeddings')
  
     def _encodeDataset(self) -> None:
         self._dataset = self._dataset.map(lambda example: {'embeddings': self._dpr.encodeContext(example['sentence'])})

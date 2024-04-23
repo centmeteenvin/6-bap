@@ -4,10 +4,10 @@ from ..settings import Settings
 from .. import logger, torch
 
 class Model:
-    def __init__(self) -> None:
+    def __init__(self, modelName: str, shouldQuantize: bool, deviceMap: str) -> None:
         logger.info(f"loading model")
         bnb_config = None
-        if Settings.shouldQuantize:
+        if shouldQuantize:
             logger.info("With Quantization")
             compute_dtype = getattr(torch, "float16")
             bnb_config = BitsAndBytesConfig(
@@ -18,9 +18,9 @@ class Model:
             )
         
         self.model : AutoModelForCausalLM=  AutoModelForCausalLM.from_pretrained(
-            pretrained_model_name_or_path=Settings.modelName if Settings.modelPath is None else Settings.modelPath,
+            pretrained_model_name_or_path=modelName,
             token = Settings.accesToken,
-            device_map = 'auto' if Settings.autoMap else 'cuda',
+            device_map = deviceMap,
             quantization_config = bnb_config 
         )
     

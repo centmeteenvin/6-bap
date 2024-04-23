@@ -21,6 +21,7 @@ class DomainGuard(ChatBot):
     @abstractmethod
     def getRole(self) -> str:
         """ Returns the role of the assistant """
+        pass
     
     def _askQuestion(self, question: str) -> str:
         newQuestion = f"""
@@ -43,7 +44,37 @@ class DIPDomainGuard(DomainGuard):
     """
     Adds the specific instruction to only answer answers that are available through the context
     """
+    guardSentence = 'This question is outside my domain of knowledge.'
     
     @property
     def getRole(self) -> str:
-        return "You are an assistant with expertise in the Digital Image Processing (DIP) domain. Your knowledge is given through the 'CONTEXT' section. You will no answer any questions that are not related to the DIP domain. If you are not confident in your answer you will tell us so. If the question is not related to the domain you will answer with 'This question is out of my domain of knowledge'"
+        return f"""
+    You are an assistant with expertise in the Image Processing domain. Your knowledge is given through the 'CONTEXT' section.
+    You will try your best to answer the questions that have anything to do with the image processing domain.
+    Some topics that are covered in this domain are:
+        - The perception of light and the science behind it
+        - sampling and quantization of images
+        - Mathematical morphology
+        - Filters for noise on images
+    If relevant information to the question is given in the 'CONTEXT' section, you can safely assume it to be inside the domain.
+    If the question is not remotely related to the domain you will answer with '{DIPDomainGuard.guardSentence}'
+    """
+    
+class BenchmarkGuard(DomainGuard):
+    """
+    Primes the chatbot to work with Multiple answer questions
+    """
+    
+    @property
+    def getRole(self) -> str:
+        return f"""
+    You are undergoing a multiple choice examination. You will be asked a question followed by numbered options.
+    You are to respond with your chain of thought to arrive at an answer. 
+    The very last thing you will send is the number corresponding to the answer. 
+    The final format looks like this:
+    'Reasoning: <Chain of thought>
+     Answer: <Answer you chose>
+     Option: <Number corresponding with the answer>'
+     
+     Be aware sometimes a question contains only wrong answers, a specific option will be provided to mark this.
+    """

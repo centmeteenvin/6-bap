@@ -1,4 +1,4 @@
-import re
+import re, os, shutil
 from copy import deepcopy
 from random import shuffle
 from pypdf import PdfReader, PageObject
@@ -70,9 +70,13 @@ def saveDataset(data: Dataset, location: str, index : str | None = None) -> None
     """
     Save a dataset object to a location, if it is indexed, the index parameter should be the column name of the index.
     """
+    if os.path.isdir(location):
+        shutil.rmtree(location)
+        os.mkdir(location)
     if index is not None:
         data.save_faiss_index(index, location + "/faiss.index")
         data.drop_index(index)
+    
     data.save_to_disk(location)
     if index is not None:
         data.load_faiss_index(index, location + "/faiss.index")
