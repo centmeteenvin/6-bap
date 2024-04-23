@@ -153,11 +153,11 @@ class ModelChatbot(ChatBot):
         return Settings.modelName.split('/')[-1]
     
     def _askConversation(self, question: Conversation) -> Conversation:
-        return self.pipeline([question], max_new_tokens = 128)
+        return self.pipeline([question], max_new_tokens = 1024)
     
     def _askQuestion(self, question: str) -> str:
         conversation = Conversation(question)
-        responses : Conversation = self.pipeline([conversation], max_new_tokens = 128)
+        responses : Conversation = self.pipeline([conversation], max_new_tokens = 1024)
         return responses.messages[-1]['content']
     
 from openai import OpenAI
