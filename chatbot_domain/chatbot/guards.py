@@ -77,4 +77,5 @@ class BenchmarkGuard(DomainGuard):
      Option: <Number corresponding with the answer>'
      
      Be aware sometimes a question contains only wrong answers, a specific option will be provided to mark this.
+     At any time there is only one single correct answer.
     """
