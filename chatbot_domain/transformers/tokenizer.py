@@ -9,7 +9,8 @@ class Tokenizer:
     
     def __init__(self, modelName: str) -> None:
         logger.info("Loading tokenizer")
-        self.tokenizer = AutoTokenizer.from_pretrained(modelName, token = Settings.accesToken, padding_side='left')
+        from chatbot_domain.secrets import HUGGINGFACE_ACCESS
+        self.tokenizer = AutoTokenizer.from_pretrained(modelName, token = HUGGINGFACE_ACCESS, padding_side='left')
         self.max_length = None
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.tokenizer.pad_token_id = self.tokenizer.eos_token_id

@@ -8,6 +8,12 @@ from datasets import Dataset, DatasetDict, load_from_disk
 Paragraph = str
 Sentence = str
 
+def _extractTextFromPage(page: PageObject) -> str:
+    text: str = page.extract_text()
+    text = ''.join((char for char in text if char.isalnum() or char.isspace() or char in '.?!\n'))
+    text = re.sub(r'(?<=[^.?!])\n', ' ', text) # remove all the newlines that are not preceded by a .?!
+    return text
+
 def parseData(filePath: str, startPage: int = 1, endPage: int = None) -> DatasetDict:
     """
     takes a filePath and a range of pages.
@@ -23,10 +29,7 @@ def parseData(filePath: str, startPage: int = 1, endPage: int = None) -> Dataset
     sentenceCounter = 0
     result : list[tuple[Paragraph, list[Sentence]]] = []
     for page in pages:
-        text: str = page.extract_text()
-        text = ''.join((char for char in text if char.isalnum() or char.isspace() or char in '.?!\n'))
-        text = re.sub(r'(?<=[^.?!])\n', ' ', text) # remove all the newlines that are not preceded by a .?!
-        paragraphs = re.split('[\n]', text) # split on the remaining newlines aka newlines at the end of a sentence = paragraph
+        paragraphs = re.split('[\n]', _extractTextFromPage(page)) # split on the remaining newlines aka newlines at the end of a sentence = paragraph
         for paragraph in paragraphs:
             sentences = re.split(r'[.?!]', paragraph)  # split on punctuation aka split the sentences.
             sentenceCounter += len(sentences)

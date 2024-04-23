@@ -20,7 +20,8 @@ class _RetrieverPhaseRAGBuilder():
 class RAGBuilder():
     def __init__(self) -> None:
         self._retriever = None
-        
+    
+    @staticmethod
     def fromFile(fileName: str, storePath: str | None = None) -> _RetrieverPhaseRAGBuilder:
         """The retriever will first parse a file into a dataset. if storePath is given the dataset will be stored there."""
         parsedData = parseData(fileName)
@@ -28,12 +29,13 @@ class RAGBuilder():
         return _RetrieverPhaseRAGBuilder(dataset, storePath)
         
         
-        
+    @staticmethod
     def fromDatasetDisk(loadPath: str) -> _RetrieverPhaseRAGBuilder:
         """Will load the dataset from the given path, additional columns will update the loadPath"""
         dataset = loadDataSetFromDisk(loadPath)
         return _RetrieverPhaseRAGBuilder(dataset, loadPath)
     
+    @staticmethod
     def fromDataset(dataset: Dataset, storePath: str | None = None) -> _RetrieverPhaseRAGBuilder:
         """
         Will use the given dataset object.
@@ -68,12 +70,14 @@ class ChatBotModifier():
         
 
 class ChatBotBuilder():
+    @staticmethod
     def openAI(modelName: str | None = None) -> ChatBotModifier:
         "Builds an chatbot that works with openAI's API, default model will be GPT-3.5-turbo"
         if modelName is None:
             return ChatBotModifier(base=OpenAIChatBot())
         return ChatBotModifier(base=OpenAIChatBot(model=modelName))
     
+    @staticmethod
     def model(modelAndTokenizer: tuple[Model, Tokenizer]) -> ChatBotModifier:
         "Returns a model builder which can be used to create the ModelChatBot, prefer using the .transformer ModelBuilder for this"
         return ChatBotModifier(base=ModelChatbot(modelAndTokenizer[0], modelAndTokenizer[1]))

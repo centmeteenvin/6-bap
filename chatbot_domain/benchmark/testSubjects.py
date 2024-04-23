@@ -69,4 +69,21 @@ class NLPTestSubject(TestSubject):
     def getName(self) -> str:
         return self.chatbot.getName
         
+class HumanTestSubject(TestSubject):
+    def __init__(self, name: str) -> None:
+        super().__init__()
+        self._name = name
+        
+    def askQuestion(self, question: str, options: list[str]) -> int:
+        print("Question:", question)
+        for option in options:
+            print(option)
+        answer = input("Answer: ")
+        if answer == "":
+            return self.askQuestion(question, options)
+        answer = int(answer)
+        return answer - 1 
     
+    @property
+    def getName(self) -> str:
+        return self._name

@@ -17,9 +17,10 @@ class Model:
             bnb_4bit_use_double_quant=True,
             )
         
+        from chatbot_domain.secrets import HUGGINGFACE_ACCESS
         self.model : AutoModelForCausalLM=  AutoModelForCausalLM.from_pretrained(
             pretrained_model_name_or_path=modelName,
-            token = Settings.accesToken,
+            token = HUGGINGFACE_ACCESS,
             device_map = deviceMap,
             quantization_config = bnb_config 
         )
