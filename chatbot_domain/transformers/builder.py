@@ -1,5 +1,5 @@
 from __future__ import annotations
-from .model import Model
+from .model import Model, AdaptedModel
 from .tokenizer import Tokenizer
 class ModelBuilder():
     def __init__(self) -> None:
@@ -19,5 +19,7 @@ class ModelBuilder():
         self._deviceMap = deviceMap
         return self
     
-    def build(self) ->tuple[Model, Tokenizer]:
+    def build(self, adapted: bool = False) ->tuple[Model, Tokenizer]:
+        if adapted:
+            return AdaptedModel(self._modelName, self._shouldQuantize, self._deviceMap), Tokenizer(self._modelName)
         return Model(self._modelName, self._shouldQuantize, self._deviceMap), Tokenizer(self._modelName)

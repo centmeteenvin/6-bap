@@ -2,6 +2,7 @@ from transformers import AutoModelForCausalLM, BitsAndBytesConfig
 from transformers import Pipeline
 from ..settings import Settings
 from .. import logger, torch
+from peft import PeftModelForCausalLM, PeftConfig
 
 class Model:
     def __init__(self, modelName: str, shouldQuantize: bool, deviceMap: str) -> None:
@@ -24,4 +25,10 @@ class Model:
             device_map = deviceMap,
             quantization_config = bnb_config 
         )
+
+class AdaptedModel(Model):
+    def __init__(self,name: str, shouldQuantize: bool, deviceMap: str) -> None:
+        self.config = PeftConfig.from_pretrained(name)
+        super().__init__(self.config.base_model_name_or_path, shouldQuantize, deviceMap)
+        self.model = PeftModelForCausalLM.from_pretrained(self.model, name)
     
