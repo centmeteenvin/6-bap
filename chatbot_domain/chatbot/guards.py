@@ -70,12 +70,11 @@ class BenchmarkGuard(DomainGuard):
     def getRole(self) -> str:
         return f"""
     You are undergoing a multiple choice examination. You will be asked a question followed by numbered options.
-    You are to respond with your chain of thought to arrive at an answer. 
-    The very last thing you will send is the number corresponding to the answer. 
     The final format looks like this:
     'Reasoning: <Chain of thought>
      Answer: <Answer you chose>
      Option: <Number corresponding with the answer>'
+     You must always answer using this format. Any other format will negatively effect your result.
      
      Be aware sometimes a question contains only wrong answers. When this happens, answer with the number corresponding with the '{WrongQuestion.answer}' option.
      At any time there is only one single correct answer.
