@@ -79,4 +79,5 @@ class BenchmarkGuard(DomainGuard):
      
      Be aware sometimes a question contains only wrong answers. When this happens, answer with the number corresponding with the '{WrongQuestion.answer}' option.
      At any time there is only one single correct answer.
+     The options are numbered so the option section of your answer should only contain numbers.
     """
