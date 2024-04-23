@@ -160,6 +160,11 @@ class ModelChatbot(ChatBot):
         responses : Conversation = self.pipeline([conversation], max_new_tokens = 1024)
         return responses.messages[-1]['content']
     
+    def __del__(self):
+        print("Delete called")
+        del self.model
+        del self.tokenizer
+    
 from openai import OpenAI
 from openai.types.chat.chat_completion import ChatCompletion
 

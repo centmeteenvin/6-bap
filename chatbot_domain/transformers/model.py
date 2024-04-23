@@ -26,6 +26,10 @@ class Model:
             quantization_config = bnb_config 
         )
         self.name= modelName
+        
+    def __del__(self):
+        del self.model
+        torch.cuda.empty_cache()
 
 class AdaptedModel(Model):
     def __init__(self,name: str, shouldQuantize: bool, deviceMap: str) -> None:
