@@ -106,8 +106,11 @@ class RAGChatBot(ChatBot):
             logger.debug(f"Context concatenation loop completed without breaking, updating sampleGuess to {self._sampleGuess}")
             logger.debug(f"rerunning context gathering with higher samples")
             return self._getContext(question)
-  
-    
+        
+    def __del__(self):
+        del self._retriever
+        del self._chatbot
+        
     def _askConversation(self, conversation: Conversation) -> Conversation:
         """
         Prepends context to the current conversation object and appends the answer.
