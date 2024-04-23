@@ -150,7 +150,7 @@ class ModelChatbot(ChatBot):
     
     @property
     def getName(self) -> str:
-        return Settings.modelName.split('/')[-1]
+        return self.model.name.split('/')[-1]
     
     def _askConversation(self, question: Conversation) -> Conversation:
         return self.pipeline([question], max_new_tokens = 1024)

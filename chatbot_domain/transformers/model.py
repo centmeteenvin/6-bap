@@ -25,10 +25,11 @@ class Model:
             device_map = deviceMap,
             quantization_config = bnb_config 
         )
+        self.name= modelName
 
 class AdaptedModel(Model):
     def __init__(self,name: str, shouldQuantize: bool, deviceMap: str) -> None:
         self.config = PeftConfig.from_pretrained(name, token=HUGGINGFACE_ACCESS)
         super().__init__(self.config.base_model_name_or_path, shouldQuantize, deviceMap)
         self.model = PeftModelForCausalLM.from_pretrained(self.model, name, token=HUGGINGFACE_ACCESS)
-    
+        self.name = name
