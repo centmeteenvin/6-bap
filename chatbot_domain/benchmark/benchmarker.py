@@ -5,6 +5,7 @@ from .question import Question, OutsideDomainQuestion, WrongQuestion, LiteralQue
 from shutil import get_terminal_size
 from .testSubjects import TestSubject
 from chatbot_domain import logger
+import os
 
 class TestScore:
     """This contains the results of an evaluation"""
@@ -30,6 +31,8 @@ class TestScore:
     def save(self, directory: str) -> None:
         """Save the testscore in the given directory under the name {self.subject.getname}-{score}-{datetime}"""
         score = self.total
+        if not os.path.exists(directory):
+            os.makedirs(directory)
         with open(f"{directory}/{self.subject.getName}-{score} out {len(self.results)}-{datetime.datetime.now().strftime('%d-%m-%Y-%H-%M')}.score", 'w') as file:
             file.write(self.__repr__() + '\n')
             for i, result in enumerate(self.results):
