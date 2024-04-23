@@ -71,10 +71,17 @@ class NLPTestSubject(TestSubject):
                     return self.askQuestion(question, options, recursion_level + 1)
                 else:
                     logger.error("Max recursion depth reached, will answer with option 4, wrong answers")
-                    raise Exception("Could not extract the answer.")
+                    print("Question:\n", question, "\noptions:")
+                    for option in options:
+                        print(option)
+                    print("Answer:\n", answer)
+                    userInput = input("What was the answer [ENTER for reprompt]: ")
+                    if userInput == "":
+                        return self.askQuestion(question, options, recursion_level + 1)
+                    option = int(userInput)
                     
         logger.debug(f"The option that was extracted: {option}")
-        return min(option -1, 4)
+        return min(option -1, len(options))
     
     @property
     def getName(self) -> str:
