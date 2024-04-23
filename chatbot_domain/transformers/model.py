@@ -3,6 +3,7 @@ from transformers import Pipeline
 from ..settings import Settings
 from .. import logger, torch
 from peft import PeftModelForCausalLM, PeftConfig
+from chatbot_domain.secrets import HUGGINGFACE_ACCESS
 
 class Model:
     def __init__(self, modelName: str, shouldQuantize: bool, deviceMap: str) -> None:
@@ -18,7 +19,6 @@ class Model:
             bnb_4bit_use_double_quant=True,
             )
         
-        from chatbot_domain.secrets import HUGGINGFACE_ACCESS
         self.model : AutoModelForCausalLM=  AutoModelForCausalLM.from_pretrained(
             pretrained_model_name_or_path=modelName,
             token = HUGGINGFACE_ACCESS,
@@ -28,7 +28,7 @@ class Model:
 
 class AdaptedModel(Model):
     def __init__(self,name: str, shouldQuantize: bool, deviceMap: str) -> None:
-        self.config = PeftConfig.from_pretrained(name)
+        self.config = PeftConfig.from_pretrained(name, token=HUGGINGFACE_ACCESS)
         super().__init__(self.config.base_model_name_or_path, shouldQuantize, deviceMap)
-        self.model = PeftModelForCausalLM.from_pretrained(self.model, name)
+        self.model = PeftModelForCausalLM.from_pretrained(self.model, name, token=HUGGINGFACE_ACCESS)
     
