@@ -13,7 +13,7 @@
             "question": "What does correlation have to do with calculating derivatives?",
             "options": [
                 "You can use it to calculate the derivative of an 2D matrix by correlating with a specific kernel, convolution also has this property",
-                "You can use it to calculate the derivative of an 2D matrix by correlating with a specific kernel, convolution also does not have this property",
+                "You can use it to calculate the derivative of an 2D matrix by correlating with a specific kernel, convolution does not have this property",
                 "They are not related"
             ],
             "category":"literal"
@@ -105,7 +105,7 @@
                 "Yes.",
                 "No."
             ],
-            "category":"deduction"
+            "category":"wrong answers"
         },
         {
             "question": "Which conversion factor K_m is used when we are using our photopic vision?",
@@ -157,7 +157,7 @@
             "options": [
                 "An image processing phenomenon.",
                 "A vegetable.",
-                "A food product"
+                "A food product."
             ],
             "category":"outside domain"
         },
@@ -166,16 +166,16 @@
             "options": [
                 "It is futile.",
                 "Being happy.",
-                "To be able to cease existing"
+                "To be able to cease existing."
             ],
             "category":"outside domain"
         },
         {
             "question": "In what language is the python compiler written",
             "options": [
-                "C++",
-                "Cobol",
-                "Java"
+                "C++.",
+                "Matlab.",
+                "Java."
             ],
             "category":"outside domain"
         },
@@ -184,7 +184,7 @@
             "options": [
                 "RGB.",
                 "HSI.",
-                "HVS."
+                "HSV."
             ],
             "category": "wrong answers"
         },
