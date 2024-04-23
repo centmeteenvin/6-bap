@@ -68,7 +68,7 @@ class NLPTestSubject(TestSubject):
             else:
                 if answer.strip()[0].isdigit():
                     option = int(answer[0])
-                if recursion_level < 3:
+                elif recursion_level < 3:
                     logger.error("Reprompting the subject.")
                     return self.askQuestion(question, options, recursion_level + 1)
                 else:
