@@ -2,6 +2,7 @@ from transformers import AutoModelForCausalLM, BitsAndBytesConfig
 from transformers import Pipeline
 from ..settings import Settings
 from .. import logger, torch
+import gc
 from peft import PeftModelForCausalLM, PeftConfig
 from chatbot_domain.secrets import HUGGINGFACE_ACCESS
 
@@ -30,6 +31,7 @@ class Model:
     def delete(self):
         print("Deleted Model")
         del self.model
+        gc.collect()
         torch.cuda.empty_cache()
 
 class AdaptedModel(Model):
