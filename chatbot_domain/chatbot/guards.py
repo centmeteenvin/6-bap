@@ -2,6 +2,7 @@ from transformers import Conversation
 from .chatbot import ChatBot
 from abc import abstractmethod
 from chatbot_domain import logger
+from chatbot_domain.benchmark import WrongQuestion
 
 class DomainGuard(ChatBot):
     """
@@ -76,6 +77,6 @@ class BenchmarkGuard(DomainGuard):
      Answer: <Answer you chose>
      Option: <Number corresponding with the answer>'
      
-     Be aware sometimes a question contains only wrong answers, a specific option will be provided to mark this.
+     Be aware sometimes a question contains only wrong answers. When this happens, answer with the number corresponding with the '{WrongQuestion.answer}' option.
      At any time there is only one single correct answer.
     """
