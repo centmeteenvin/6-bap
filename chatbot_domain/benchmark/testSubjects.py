@@ -54,13 +54,24 @@ class NLPTestSubject(TestSubject):
                     logger.error(f"Got an index error meaning the option could not be extracted from the answer")
                     continue
         else:
-            logger.error("Parsing loop completed without breaking.")
-            if recursion_level < 3:
-                logger.error("Reprompting the subject.")
-                return self.askQuestion(question, options, recursion_level + 1)
+            logger.error("Parsing loop completed without breaking. Trying harder to extract answer")
+            for line in reversed(answer.splitlines()):
+                if "answer" in line.lower():
+                    try:
+                        matches = re.findall(r'(\d)[.,\s]*|$', line)
+                        matches.pop()
+                        option = int(matches[0])
+                        break
+                    except IndexError as e:
+                        logger.error(f"Got an index error meaning the option could not be extracted from the answer")
+                        continue
             else:
-                logger.error("Max recursion depth reached, will answer with option 4, wrong answers")
-                return len(self.options) - 2
+                if recursion_level < 3:
+                    logger.error("Reprompting the subject.")
+                    return self.askQuestion(question, options, recursion_level + 1)
+                else:
+                    logger.error("Max recursion depth reached, will answer with option 4, wrong answers")
+                    raise Exception("Could not extract the answer.")
                     
         logger.debug(f"The option that was extracted: {option}")
         return min(option -1, 4)
