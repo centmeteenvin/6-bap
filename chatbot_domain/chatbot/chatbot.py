@@ -75,6 +75,11 @@ class ChatBot(ABC):
             print(self._representAnswer(response.messages[-1]['content']))
             prompt = input("> ")
             conversation.add_user_input(prompt)
+            
+    @abstractmethod
+    def delete(self):
+        """Deletes the models from memory"""
+        pass
 
 class RAGChatBot(ChatBot):
     """
@@ -107,10 +112,6 @@ class RAGChatBot(ChatBot):
             logger.debug(f"rerunning context gathering with higher samples")
             return self._getContext(question)
         
-    def __del__(self):
-        del self._retriever
-        del self._chatbot
-        
     def _askConversation(self, conversation: Conversation) -> Conversation:
         """
         Prepends context to the current conversation object and appends the answer.
@@ -141,6 +142,9 @@ class RAGChatBot(ChatBot):
     def getName(self) -> str:
         return self._chatbot.getName + "+rag"
     
+    def delete(self):
+        self._chatbot.delete()
+    
             
 class ModelChatbot(ChatBot):
     def __init__(self, model: Model, tokenizer: Tokenizer) -> None:
@@ -163,10 +167,8 @@ class ModelChatbot(ChatBot):
         responses : Conversation = self.pipeline([conversation], max_new_tokens = 1024)
         return responses.messages[-1]['content']
     
-    def __del__(self):
-        print("Delete called")
-        del self.model
-        del self.tokenizer
+    def delete(self):
+        self.model.delete()
     
 from openai import OpenAI
 from openai.types.chat.chat_completion import ChatCompletion

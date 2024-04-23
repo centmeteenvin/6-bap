@@ -27,7 +27,8 @@ class Model:
         )
         self.name= modelName
         
-    def __del__(self):
+    def delete(self):
+        print("Deleted Model")
         del self.model
         torch.cuda.empty_cache()
 

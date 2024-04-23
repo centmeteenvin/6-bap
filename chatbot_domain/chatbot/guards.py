@@ -33,8 +33,6 @@ class DomainGuard(ChatBot):
         logger.debug(f"The added role was {self.getRole}")
         return self._chatbot._askQuestion(newQuestion)
     
-    def __del__(self):
-        del self._chatbot
     
     def _askConversation(self, question: Conversation) -> Conversation:
         question.add_message({
@@ -43,6 +41,9 @@ class DomainGuard(ChatBot):
         })
         logger.debug(f"The added role was {self.getRole}")
         return self._chatbot._askConversation(question)
+    
+    def delete(self):
+        self._chatbot.delete()
     
 class DIPDomainGuard(DomainGuard):
     """
