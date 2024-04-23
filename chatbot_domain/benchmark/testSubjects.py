@@ -83,7 +83,7 @@ class NLPTestSubject(TestSubject):
                     option = int(userInput)
                     
         logger.debug(f"The option that was extracted: {option}")
-        return min(option -1, len(options))
+        return min(option -1, len(options) - 1)
     
     @property
     def getName(self) -> str:
