@@ -94,6 +94,7 @@ class Benchmarker():
         
     def evaluate(self) -> TestScore:
         testScore = TestScore(self._testSubject)
+        return TestScore
         shuffledQuestions = deepcopy(self._questions)
         shuffle(shuffledQuestions)
         for i, question in enumerate(shuffledQuestions):
