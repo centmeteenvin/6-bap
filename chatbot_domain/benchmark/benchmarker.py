@@ -112,9 +112,8 @@ class Benchmarker():
                 numberedOptions.append(f"{i + 1}. {option}")
             
             #Ask the question to the testSubject
-            # selectedOption = self._testSubject.askQuestion(question.question, numberedOptions)
-            # answer = options[selectedOption]
-            answer = options[1]
+            selectedOption = self._testSubject.askQuestion(question.question, numberedOptions)
+            answer = options[selectedOption]
             
             #Check if the answer is correct
             isCorrect = question.evaluate(answer)

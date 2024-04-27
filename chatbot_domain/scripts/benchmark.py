@@ -73,6 +73,7 @@ chatbot = ChatBotBuilder.model(
     ).build()
 benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
 scores.extend(runTest(testRunDirectory, "mixtral-8*7B-RAG2k", benchmarker, summary))
+del benchmarker._testSubject
 del benchmarker
 del chatbot
 gc.collect()
@@ -86,6 +87,7 @@ chatbot = ChatBotBuilder.model(
 benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
 testName = "mistral7B"
 scores.extend(runTest(testRunDirectory, "mistral7B", benchmarker, summary))
+del benchmarker._testSubject
 del benchmarker
 del chatbot
 gc.collect()
@@ -99,6 +101,7 @@ chatbot = ChatBotBuilder.model(
     ).build()
 benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
 scores.extend(runTest(testRunDirectory, "mistral7B-RAG2k", benchmarker, summary))
+del benchmarker._testSubject
 del benchmarker
 del chatbot
 gc.collect()
@@ -110,6 +113,7 @@ chatbot = ChatBotBuilder.model(
     ).benchmarkGuard().domainGuard(DIPDomainGuard).build()
 benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
 scores.extend(runTest(testRunDirectory, "mistral7B-ft", benchmarker, summary))
+del benchmarker._testSubject
 del benchmarker
 del chatbot
 gc.collect()
@@ -123,6 +127,7 @@ chatbot = ChatBotBuilder.model(
     ).build()
 benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
 scores.extend(runTest(testRunDirectory, "mistral7B-ft-RAG2k", benchmarker, summary))
+del benchmarker._testSubject
 del benchmarker
 del chatbot
 gc.collect()
