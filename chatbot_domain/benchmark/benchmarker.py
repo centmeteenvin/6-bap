@@ -33,7 +33,7 @@ class TestScore:
         score = self.total
         if not os.path.exists(directory):
             os.makedirs(directory)
-        with open(f"{directory}/{self.subject.getName}-{score} out {len(self.results)}-{datetime.datetime.now().strftime('%d-%m-%Y-%H-%M')}.score", 'w') as file:
+        with open(f"{directory}/{self.subjectName}-{score} out {len(self.results)}-{datetime.datetime.now().strftime('%d-%m-%Y-%H-%M')}.score", 'w') as file:
             file.write(self.__repr__() + '\n')
             for i, result in enumerate(self.results):
                 question: Question = result["question"]
