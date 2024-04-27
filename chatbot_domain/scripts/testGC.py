@@ -1,7 +1,7 @@
 import gc
 
 import torch
-
+import chatbot_domain.benchmark
 from chatbot_domain import logger
 from chatbot_domain.chatbot import ChatBotBuilder, DIPDomainGuard
 from chatbot_domain.transformers import ModelBuilder
