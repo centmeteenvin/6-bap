@@ -59,6 +59,7 @@ chatbot = ChatBotBuilder.model(
     ).benchmarkGuard().domainGuard(DIPDomainGuard).build()
 benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
 scores.extend(runTest(testRunDirectory, "mixtral-8*7B", benchmarker, summary))
+del benchmarker._testSubject
 del benchmarker
 del chatbot
 gc.collect()
