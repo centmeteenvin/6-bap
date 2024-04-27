@@ -31,3 +31,17 @@ gc.collect()
 logger.info(f"The memory after calling gc: {getCurrentMemory()}")
 torch.cuda.empty_cache()
 logger.info(f"The memory after calling empty_cache: {getCurrentMemory()}")
+
+logger.info("Rerunning test but without calling chatbot.delete()")
+
+logger.info("Loading big GPU model")
+chatbot = ChatBotBuilder.model(
+    ModelBuilder().modelName('mistralai/Mixtral-8x7B-Instruct-v0.1').deviceMap("auto").shouldQuantize(True).build(adapted=False)
+    ).benchmarkGuard().domainGuard(DIPDomainGuard).build()
+logger.info(f"The used memory is {torch.cuda.memory_allocated}")
+del chatbot
+logger.info(f"The memory after calling del chatbot: {getCurrentMemory()}")
+gc.collect()
+logger.info(f"The memory after calling gc: {getCurrentMemory()}")
+torch.cuda.empty_cache()
+logger.info(f"The memory after calling empty_cache: {getCurrentMemory()}")
