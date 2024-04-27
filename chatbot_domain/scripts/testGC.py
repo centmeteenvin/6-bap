@@ -1,9 +1,10 @@
-import torch
-from chatbot_domain import logger
-from chatbot_domain.chatbot.builder import ChatBotBuilder
-from chatbot_domain.chatbot.guards import DIPDomainGuard
-from chatbot_domain.transformers.builder import ModelBuilder
 import gc
+
+import torch
+
+from chatbot_domain import logger
+from chatbot_domain.chatbot import ChatBotBuilder, DIPDomainGuard
+from chatbot_domain.transformers import ModelBuilder
 
 logger.setLevel("INFO")
 # None Finetuned Model without RAG
