@@ -58,7 +58,7 @@ chatbot = ChatBotBuilder.model(
     ModelBuilder().modelName('mistralai/Mixtral-8x7B-Instruct-v0.1').deviceMap("auto").shouldQuantize(True).build(adapted=False)
     ).benchmarkGuard().domainGuard(DIPDomainGuard).build()
 benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
-scores.extend(runTest(testRunDirectory, "mixtral-8*7B", benchmarker, summary))
+scores.extend(runTest(testRunDirectory, "mixtral-8x7B", benchmarker, summary))
 del benchmarker._testSubject
 del benchmarker
 del chatbot
@@ -72,7 +72,7 @@ chatbot = ChatBotBuilder.model(
         RAGBuilder.fromDatasetDisk('ragData.set').vectorRetriever(FacebookDPR()), contextLength= 2048
     ).build()
 benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
-scores.extend(runTest(testRunDirectory, "mixtral-8*7B-RAG2k", benchmarker, summary))
+scores.extend(runTest(testRunDirectory, "mixtral-8x7B-RAG2k", benchmarker, summary))
 del benchmarker._testSubject
 del benchmarker
 del chatbot
