@@ -10,7 +10,7 @@ import os
 class TestScore:
     """This contains the results of an evaluation"""
     def __init__(self, subject = TestSubject) -> None:
-        self.subject = subject
+        self.subjectName = subject.getName
         self.results: list[dict["question": Question, "answer": str, "isCorrect": bool]] = []
     
     def addResult(self, question: Question, answer: str,isCorrect: bool) -> None:
