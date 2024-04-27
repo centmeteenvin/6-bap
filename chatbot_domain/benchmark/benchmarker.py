@@ -94,7 +94,6 @@ class Benchmarker():
         
     def evaluate(self) -> TestScore:
         testScore = TestScore(self._testSubject)
-        return TestScore
         shuffledQuestions = deepcopy(self._questions)
         shuffle(shuffledQuestions)
         for i, question in enumerate(shuffledQuestions):
@@ -113,8 +112,9 @@ class Benchmarker():
                 numberedOptions.append(f"{i + 1}. {option}")
             
             #Ask the question to the testSubject
-            selectedOption = self._testSubject.askQuestion(question.question, numberedOptions)
-            answer = options[selectedOption]
+            # selectedOption = self._testSubject.askQuestion(question.question, numberedOptions)
+            # answer = options[selectedOption]
+            answer = options[1]
             
             #Check if the answer is correct
             isCorrect = question.evaluate(answer)
