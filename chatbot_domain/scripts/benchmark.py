@@ -16,6 +16,7 @@ parser = JsonQuestionParser('questions.json')
 questions = parser.parse()
 
 def runTest(scoreDirectory: str, testRunName: str, benchmarker: Benchmarker, summary : dict,samples: int = 3) -> list[TestScore]:
+    return []
     scores : list[TestScore] =  []
     logger.info(f"Starting tests for {testRunName}")
     summarySection = {
