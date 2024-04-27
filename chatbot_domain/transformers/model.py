@@ -30,7 +30,7 @@ class Model:
         
     def delete(self):
         print("Deleted Model")
-        del self.model
+        del self.model 
         gc.collect()
         torch.cuda.empty_cache()
 
