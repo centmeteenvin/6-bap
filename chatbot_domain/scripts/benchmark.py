@@ -57,7 +57,7 @@ chatbot = ChatBotBuilder.model(
     ModelBuilder().modelName('mistralai/Mixtral-8x7B-Instruct-v0.1').deviceMap("auto").shouldQuantize(True).build(adapted=False)
     ).benchmarkGuard().domainGuard(DIPDomainGuard).build()
 benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
-# scores.extend(runTest(testRunDirectory, "mixtral-8*7B", benchmarker, summary))
+scores.extend(runTest(testRunDirectory, "mixtral-8*7B", benchmarker, summary))
 del benchmarker
 del chatbot
 gc.collect()
@@ -84,6 +84,7 @@ chatbot = ChatBotBuilder.model(
 benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
 testName = "mistral7B"
 scores.extend(runTest(testRunDirectory, "mistral7B", benchmarker, summary))
+del benchmarker
 del chatbot
 gc.collect()
 torch.cuda.empty_cache()
@@ -96,6 +97,7 @@ chatbot = ChatBotBuilder.model(
     ).build()
 benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
 scores.extend(runTest(testRunDirectory, "mistral7B-RAG2k", benchmarker, summary))
+del benchmarker
 del chatbot
 gc.collect()
 torch.cuda.empty_cache()
@@ -106,6 +108,7 @@ chatbot = ChatBotBuilder.model(
     ).benchmarkGuard().domainGuard(DIPDomainGuard).build()
 benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
 scores.extend(runTest(testRunDirectory, "mistral7B-ft", benchmarker, summary))
+del benchmarker
 del chatbot
 gc.collect()
 torch.cuda.empty_cache()
@@ -118,6 +121,7 @@ chatbot = ChatBotBuilder.model(
     ).build()
 benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
 scores.extend(runTest(testRunDirectory, "mistral7B-ft-RAG2k", benchmarker, summary))
+del benchmarker
 del chatbot
 gc.collect()
 torch.cuda.empty_cache()
