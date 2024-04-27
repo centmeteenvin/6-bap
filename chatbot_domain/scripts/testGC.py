@@ -10,9 +10,9 @@ def getCurrentMemory() -> str:
     free_memory, total_memory = torch.cuda.mem_get_info()
     allocated_memory = torch.cuda.memory_allocated()
     return f"""
-Total:      {total_memory}
-Free:       {free_memory}
-allocated:  {allocated_memory}
+Total:      {total_memory/1_000_000:20.} MB
+Free:       {free_memory/1_000_000:20.} MB
+allocated:  {allocated_memory/1_000_000:20.} MB
 """
 
 logger.setLevel("INFO")
