@@ -1,17 +1,20 @@
 from random import shuffle
 from copy import deepcopy
 import datetime
+from time import sleep
 from .question import Question, OutsideDomainQuestion, WrongQuestion, LiteralQuestion, DeductionQuestion
 from shutil import get_terminal_size
 from .testSubjects import TestSubject
 from chatbot_domain import logger
 import os
-
+import time
+import datetime
 class TestScore:
     """This contains the results of an evaluation"""
     def __init__(self, subject = TestSubject) -> None:
         self.subjectName = subject.getName
         self.results: list[dict["question": Question, "answer": str, "isCorrect": bool]] = []
+        self.answeringTime : float = 0
     
     def addResult(self, question: Question, answer: str,isCorrect: bool) -> None:
         self.results.append({
@@ -73,6 +76,7 @@ class TestScore:
     {get_terminal_size().columns * '='}
     # TEST RESULTS
     overal Score: {overalScore}/{len(self.results)}
+    Time to completion: {str(datetime.timedelta(seconds=self.answeringTime))}
     ## breakdown:
         literal:        {literalScore:10}/{literalCount}
         deduction:      {deductionScore:10}/{deductionCount}
@@ -92,7 +96,7 @@ class Benchmarker():
         self._testSubject = testSubject
         self._questions = questions
         
-    def evaluate(self) -> TestScore:
+    def evaluate(self, delaySeconds : int = 0) -> TestScore:
         testScore = TestScore(self._testSubject)
         shuffledQuestions = deepcopy(self._questions)
         shuffle(shuffledQuestions)
@@ -112,7 +116,9 @@ class Benchmarker():
                 numberedOptions.append(f"{i + 1}. {option}")
             
             #Ask the question to the testSubject
+            startTime = time.time()
             selectedOption = self._testSubject.askQuestion(question.question, numberedOptions)
+            answeringTime = time.time() - startTime
             answer = options[selectedOption]
             
             #Check if the answer is correct
@@ -120,4 +126,6 @@ class Benchmarker():
             
             #Add result to the testScore
             testScore.addResult(question, answer, isCorrect)
+            testScore.answeringTime += answeringTime
+            sleep(delaySeconds)
         return testScore

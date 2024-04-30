@@ -1,5 +1,5 @@
 from __future__ import annotations
-from .chatbot import ChatBot, RAGChatBot, OpenAIChatBot, ModelChatbot
+from .chatbot import ChatBot, RAGChatBot, OpenAIChatBot, ModelChatbot, AnthropicChatBot
 from .guards import DomainGuard, BenchmarkGuard
 from chatbot_domain.rag import Retriever, DPR, VectorRetriever
 from chatbot_domain.data import parseData, createDataSet, loadDataSetFromDisk
@@ -76,6 +76,13 @@ class ChatBotBuilder():
         if modelName is None:
             return ChatBotModifier(base=OpenAIChatBot())
         return ChatBotModifier(base=OpenAIChatBot(model=modelName))
+    
+    @staticmethod
+    def anthropic(modelName: str | None = None) -> ChatBotModifier:
+        """Builds a chatbot that works with openAI's API, default model will be claude-3 opus"""
+        if modelName is None:
+            return ChatBotModifier(base=AnthropicChatBot())
+        return ChatBotModifier(base=AnthropicChatBot(model=modelName))
     
     @staticmethod
     def model(modelAndTokenizer: tuple[Model, Tokenizer]) -> ChatBotModifier:

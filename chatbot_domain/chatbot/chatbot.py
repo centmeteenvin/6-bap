@@ -9,6 +9,7 @@ from chatbot_domain.settings import Settings
 from chatbot_domain.transformer.model import Model
 from chatbot_domain.transformer.tokenizer import Tokenizer
 from shutil import get_terminal_size
+import anthropic
 
 
 class ChatBot(ABC):
@@ -76,7 +77,6 @@ class ChatBot(ABC):
             prompt = input("> ")
             conversation.add_user_input(prompt)
             
-    @abstractmethod
     def delete(self):
         """Deletes the models from memory"""
         pass
@@ -204,5 +204,33 @@ class OpenAIChatBot(ChatBot):
             ) # Filter for only 'content' and 'role' keys
         return question
     
+class AnthropicChatBot(ChatBot):
+    """
+    A chatbot using the anthropic API.
+    """
+    
+    def __init__(self, model : str = "claude-3-opus-20240229") -> None:
+        super().__init__()
+        from chatbot_domain.secrets import ANTHROPIC_API
+        self.client = anthropic.Anthropic(
+            api_key=ANTHROPIC_API
+        )
+        self._name = model
+        
+    @property
+    def getName(self) -> str:
+        return self._name
+    
+    def _askQuestion(self, question: str) -> str:
+        result = self._askConversation(Conversation(question))
+        return result.messages[-1]['content']
 
+    def _askConversation(self, question: Conversation) -> Conversation:
+        response = self.client.messages.create(
+            model= self._name,
+            max_tokens=1024,
+            messages=question.messages
+        ).content[0].text
+        question.append_response(response)
+        return question   
         

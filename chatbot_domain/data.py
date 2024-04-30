@@ -29,7 +29,9 @@ def parseData(filePath: str, startPage: int = 1, endPage: int = None) -> Dataset
     sentenceCounter = 0
     result : list[tuple[Paragraph, list[Sentence]]] = []
     for page in pages:
-        paragraphs = re.split('[\n]', _extractTextFromPage(page)) # split on the remaining newlines aka newlines at the end of a sentence = paragraph
+        pageText = _extractTextFromPage(page)
+        # paragraphs = re.split('[\n]', _extractTextFromPage(page)) # split on the remaining newlines aka newlines at the end of a sentence = paragraph
+        paragraphs = [pageText]
         for paragraph in paragraphs:
             sentences = re.split(r'[.?!]', paragraph)  # split on punctuation aka split the sentences.
             sentenceCounter += len(sentences)

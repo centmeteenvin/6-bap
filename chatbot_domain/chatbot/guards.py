@@ -2,7 +2,7 @@ from transformers import Conversation
 from .chatbot import ChatBot
 from abc import abstractmethod
 from chatbot_domain import logger
-from chatbot_domain.benchmark import WrongQuestion
+from chatbot_domain.benchmark.question import WrongQuestion
 
 class DomainGuard(ChatBot):
     """
