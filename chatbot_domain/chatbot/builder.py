@@ -3,7 +3,7 @@ from .chatbot import ChatBot, RAGChatBot, OpenAIChatBot, ModelChatbot
 from .guards import DomainGuard, BenchmarkGuard
 from chatbot_domain.rag import Retriever, DPR, VectorRetriever
 from chatbot_domain.data import parseData, createDataSet, loadDataSetFromDisk
-from chatbot_domain.transformers import  Model, Tokenizer
+from chatbot_domain.transformer import  Model, Tokenizer
 from typing import Type
 from datasets import Dataset
 

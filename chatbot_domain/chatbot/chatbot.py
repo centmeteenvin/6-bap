@@ -6,8 +6,8 @@ from transformers import Conversation, pipeline
 from chatbot_domain import logger
 from chatbot_domain.rag.__main__ import Retriever
 from chatbot_domain.settings import Settings
-from chatbot_domain.transformers.model import Model
-from chatbot_domain.transformers.tokenizer import Tokenizer
+from chatbot_domain.transformer.model import Model
+from chatbot_domain.transformer.tokenizer import Tokenizer
 from shutil import get_terminal_size
 
 

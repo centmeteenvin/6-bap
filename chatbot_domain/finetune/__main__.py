@@ -1,9 +1,9 @@
 import argparse, logging
 from chatbot_domain import logger, ch
 from chatbot_domain.data import parseData, createDataSet, loadDataSetDictFromDisk
-from chatbot_domain.transformers.tokenizer import Tokenizer
+from chatbot_domain.transformer.tokenizer import Tokenizer
 from chatbot_domain.settings import Settings
-from chatbot_domain.transformers.model import Model
+from chatbot_domain.transformer.model import Model
 from chatbot_domain.chatbot.chatbot import ChatBot
 from . import *
 

@@ -1,6 +1,6 @@
 from transformers import Trainer, TrainingArguments
 from ..settings import Settings
-from ..transformers.model import Model
+from ..transformer.model import Model
 from datasets import DatasetDict
 from .. import logger
 from torch.cuda import empty_cache
