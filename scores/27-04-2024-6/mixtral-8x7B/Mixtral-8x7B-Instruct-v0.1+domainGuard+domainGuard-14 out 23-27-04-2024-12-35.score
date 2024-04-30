@@ -1,0 +1,195 @@
+
+    =================================================================================================================================
+    # TEST RESULTS
+    overal Score: 14/23
+    ## breakdown:
+        literal:                 9/13
+        deduction:               2/3
+        wrong answers:           2/4
+        outside domain:          1/3        
+    =================================================================================================================================
+    
+1/23 =============================================================================================================================
+question: 
+    WrongQuestion:
+    questions: If radiometric quantities talk about how we perceive light, will it cover more or less of the spectrum with respect to photometric quantities?
+    options: ['Yes.', 'No.']
+    
+answer: 'No.'
+isCorrect: False
+2/23 =============================================================================================================================
+question: 
+    DeductionQuestion:
+    questions: Why do we need to sample images?
+    options: ["In real life images are continuous signals, we can't work with those on a computer so we need to extract discrete datapoints.", "In real life images are discrete signals, we can't work with those on a computer so we need to extract discrete datapoints.", "In real life images are continuous signals, we can't work with those on a computer so we need to extract continuous datapoints."]
+    
+answer: "In real life images are continuous signals, we can't work with those on a computer so we need to extract discrete datapoints."
+isCorrect: True
+3/23 =============================================================================================================================
+question: 
+    OutsideDomainQuestion:
+    questions: In what language is the python compiler written
+    options: ['C++.', 'Matlab.', 'Java.']
+    
+answer: 'No correct answer is present.'
+isCorrect: False
+4/23 =============================================================================================================================
+question: 
+    LiteralQuestion:
+    questions: What are pixels are V components?
+    options: ['The union of all pixels q that can be connected through V-paths with pixel p.', 'The intersection of all pixels q that can be connected through V-paths with pixel p.', 'The union of all pixels 1 that cannot be connected through V-paths with pixel p.']
+    
+answer: 'The union of all pixels q that can be connected through V-paths with pixel p.'
+isCorrect: True
+5/23 =============================================================================================================================
+question: 
+    DeductionQuestion:
+    questions: What is the difference between sampling and quantization?
+    options: ['Sampling is discretization of the domain, quantization is discretization of the values themselves.', 'Quantization is discretization of the domain, sampling is discretization of the values themselves.', 'They are the same.']
+    
+answer: 'Sampling is discretization of the domain, quantization is discretization of the values themselves.'
+isCorrect: True
+6/23 =============================================================================================================================
+question: 
+    WrongQuestion:
+    questions: Which of the following is not a color model?
+    options: ['RGB.', 'HSI.', 'HSV.']
+    
+answer: 'No correct answer is present.'
+isCorrect: True
+7/23 =============================================================================================================================
+question: 
+    LiteralQuestion:
+    questions: Which filter suppresses salt-noise at the cost of increased pepper-noise
+    options: ['Min filter.', 'Max filter.', 'Median filter']
+    
+answer: 'Median filter'
+isCorrect: False
+8/23 =============================================================================================================================
+question: 
+    LiteralQuestion:
+    questions: Which intensity transformation makes an image strictly brighter
+    options: ['Log transformation.', 'Gamma transformation.', 'This cannot be achieved through an intensity transformation.']
+    
+answer: 'Log transformation.'
+isCorrect: True
+9/23 =============================================================================================================================
+question: 
+    LiteralQuestion:
+    questions: What is the border patrol technique called that reflects the values of the pixels along the border?
+    options: ['Border mirroring.', 'Constant padding.', 'Border replication.']
+    
+answer: 'Border mirroring.'
+isCorrect: True
+10/23 =============================================================================================================================
+question: 
+    LiteralQuestion:
+    questions: Why do we need a separate formula for the derivative in discrete space?
+    options: ["It is because we can't get arbitrarily close since we are stuck with integer values.", 'The derivative in discrete space does not represent the rate of change anymore', 'They are two completely different concepts']
+    
+answer: "It is because we can't get arbitrarily close since we are stuck with integer values."
+isCorrect: True
+11/23 =============================================================================================================================
+question: 
+    LiteralQuestion:
+    questions: What is an image synthesis system?
+    options: ['Systems that generate new or augment existing images, starting from a specific set of data.', 'Systems that analyze images to such a level that a predefinied set of meaningful structures can be isolated (located) in the image (the system understands the image; e.g., detecting metallic particles on a conveyor belt carrying food);', 'Systems that process incoming sensor data with the objective to generate images that are suited for human interpretation.']
+    
+answer: 'No correct answer is present.'
+isCorrect: False
+12/23 =============================================================================================================================
+question: 
+    LiteralQuestion:
+    questions: Which conversion factor K_m is used when we are using our photopic vision?
+    options: ['683 lm/W.', '1699 lm/W.', '683 W/lm.']
+    
+answer: '683 lm/W.'
+isCorrect: True
+13/23 =============================================================================================================================
+question: 
+    LiteralQuestion:
+    questions: What is interpolation used for?
+    options: ['To create logical value between to datapoints.', 'To remove datapoints.', 'To change the value of two datapoints']
+    
+answer: 'To create logical value between to datapoints.'
+isCorrect: True
+14/23 =============================================================================================================================
+question: 
+    LiteralQuestion:
+    questions: Which term is not associated with resampling?
+    options: ['Dilation.', 'Up-sampling.', 'On-grid.']
+    
+answer: 'Dilation.'
+isCorrect: True
+15/23 =============================================================================================================================
+question: 
+    WrongQuestion:
+    questions: What does contrast stretching do?
+    options: ['This transformation makes the image darker or brighter depending on the value of the parameter y.', 'This transformation makes the image darker.', 'This transformation makes the image brighter.']
+    
+answer: 'No correct answer is present.'
+isCorrect: True
+16/23 =============================================================================================================================
+question: 
+    LiteralQuestion:
+    questions: Why is there a difference between binary and grayscale image for mathematical morphology?
+    options: ["Because the set operation we use for binary images don't work on continuous values.", 'Because the grayscale image contains more data.', "Because binary images don't work well on computers."]
+    
+answer: "Because the set operation we use for binary images don't work on continuous values."
+isCorrect: True
+17/23 =============================================================================================================================
+question: 
+    LiteralQuestion:
+    questions: What are the basic operations of mathematical morphology?
+    options: ['Dilation and erosion.', 'Opening and closing.', 'Adding and subtracting.']
+    
+answer: 'Dilation and erosion.'
+isCorrect: True
+18/23 =============================================================================================================================
+question: 
+    LiteralQuestion:
+    questions: What is spatial resolution?
+    options: ['The spatial resolution of an image, an image sensor (camera) or an image actuator (screen) indicates the size of the smallest feature that can be recognized in the image.', 'The spatial resolution of an image, indicates the number of pixels per unit area.', 'The spatial resolution of an image is the amount of pixels it contains']
+    
+answer: 'The spatial resolution of an image, indicates the number of pixels per unit area.'
+isCorrect: False
+19/23 =============================================================================================================================
+question: 
+    DeductionQuestion:
+    questions: What is the unit of Luminance
+    options: ['lm/(sr*m^2).', 'lx(sr*m^2).', 'lm/W.']
+    
+answer: 'No correct answer is present.'
+isCorrect: False
+20/23 =============================================================================================================================
+question: 
+    OutsideDomainQuestion:
+    questions: What is cheese?
+    options: ['An image processing phenomenon.', 'A vegetable.', 'A food product.']
+    
+answer: 'A food product.'
+isCorrect: False
+21/23 =============================================================================================================================
+question: 
+    OutsideDomainQuestion:
+    questions: What is the meaning of life?
+    options: ['It is futile.', 'Being happy.', 'To be able to cease existing.']
+    
+answer: 'This question is outside my domain of knowledge.'
+isCorrect: True
+22/23 =============================================================================================================================
+question: 
+    WrongQuestion:
+    questions: What can we use the min and max filter for?
+    options: ['Edge detection.', 'Brightening the image.', 'Border evacuation.']
+    
+answer: 'Edge detection.'
+isCorrect: False
+23/23 =============================================================================================================================
+question: 
+    LiteralQuestion:
+    questions: What does correlation have to do with calculating derivatives?
+    options: ['You can use it to calculate the derivative of an 2D matrix by correlating with a specific kernel, convolution also has this property', 'You can use it to calculate the derivative of an 2D matrix by correlating with a specific kernel, convolution does not have this property', 'They are not related']
+    
+answer: 'They are not related'
+isCorrect: False
