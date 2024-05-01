@@ -251,61 +251,61 @@ del chatbot
 gc.collect()
 torch.cuda.empty_cache()
 
-# with RAG 2k paragraph
-chatbot = ChatBotBuilder.model(
-    ModelBuilder().modelName('meta-llama/Meta-Llama-3-70B-Instruct').deviceMap("auto").shouldQuantize(True).build(adapted=False)
-    ).benchmarkGuard().domainGuard(DIPDomainGuard).rag(
-        RAGBuilder.fromDatasetDisk('ragData.set').vectorRetriever(FacebookDPR()), contextLength= 2048
-    ).build()
-benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
-scores.extend(runTest(testRunDirectory, "llama-3-70B-RAG2kparagraph", benchmarker, summary))
-del benchmarker._testSubject
-del benchmarker
-del chatbot
-gc.collect()
-torch.cuda.empty_cache()
+# # with RAG 2k paragraph
+# chatbot = ChatBotBuilder.model(
+#     ModelBuilder().modelName('meta-llama/Meta-Llama-3-70B-Instruct').deviceMap("auto").shouldQuantize(True).build(adapted=False)
+#     ).benchmarkGuard().domainGuard(DIPDomainGuard).rag(
+#         RAGBuilder.fromDatasetDisk('ragData.set').vectorRetriever(FacebookDPR()), contextLength= 2048
+#     ).build()
+# benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
+# scores.extend(runTest(testRunDirectory, "llama-3-70B-RAG2kparagraph", benchmarker, summary))
+# del benchmarker._testSubject
+# del benchmarker
+# del chatbot
+# gc.collect()
+# torch.cuda.empty_cache()
 
-# with RAG 4k paragraph
-chatbot = ChatBotBuilder.model(
-    ModelBuilder().modelName('meta-llama/Meta-Llama-3-70B-Instruct').deviceMap("auto").shouldQuantize(True).build(adapted=False)
-    ).benchmarkGuard().domainGuard(DIPDomainGuard).rag(
-        RAGBuilder.fromDatasetDisk('ragData.set').vectorRetriever(FacebookDPR()), contextLength= 4096
-    ).build()
-benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
-scores.extend(runTest(testRunDirectory, "llama-3-70B-RAG4kparagraph", benchmarker, summary))
-del benchmarker._testSubject
-del benchmarker
-del chatbot
-gc.collect()
-torch.cuda.empty_cache()
+# # with RAG 4k paragraph
+# chatbot = ChatBotBuilder.model(
+#     ModelBuilder().modelName('meta-llama/Meta-Llama-3-70B-Instruct').deviceMap("auto").shouldQuantize(True).build(adapted=False)
+#     ).benchmarkGuard().domainGuard(DIPDomainGuard).rag(
+#         RAGBuilder.fromDatasetDisk('ragData.set').vectorRetriever(FacebookDPR()), contextLength= 4096
+#     ).build()
+# benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
+# scores.extend(runTest(testRunDirectory, "llama-3-70B-RAG4kparagraph", benchmarker, summary))
+# del benchmarker._testSubject
+# del benchmarker
+# del chatbot
+# gc.collect()
+# torch.cuda.empty_cache()
 
-# with RAG 2k page
-chatbot = ChatBotBuilder.model(
-    ModelBuilder().modelName('meta-llama/Meta-Llama-3-70B-Instruct').deviceMap("auto").shouldQuantize(True).build(adapted=False)
-    ).benchmarkGuard().domainGuard(DIPDomainGuard).rag(
-        RAGBuilder.fromDatasetDisk('ragDataPage.set').vectorRetriever(FacebookDPR()), contextLength= 2048
-    ).build()
-benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
-scores.extend(runTest(testRunDirectory, "llama-3-70B-RAG2kpage", benchmarker, summary))
-del benchmarker._testSubject
-del benchmarker
-del chatbot
-gc.collect()
-torch.cuda.empty_cache()
+# # with RAG 2k page
+# chatbot = ChatBotBuilder.model(
+#     ModelBuilder().modelName('meta-llama/Meta-Llama-3-70B-Instruct').deviceMap("auto").shouldQuantize(True).build(adapted=False)
+#     ).benchmarkGuard().domainGuard(DIPDomainGuard).rag(
+#         RAGBuilder.fromDatasetDisk('ragDataPage.set').vectorRetriever(FacebookDPR()), contextLength= 2048
+#     ).build()
+# benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
+# scores.extend(runTest(testRunDirectory, "llama-3-70B-RAG2kpage", benchmarker, summary))
+# del benchmarker._testSubject
+# del benchmarker
+# del chatbot
+# gc.collect()
+# torch.cuda.empty_cache()
 
-# with RAG 4k page
-chatbot = ChatBotBuilder.model(
-    ModelBuilder().modelName('meta-llama/Meta-Llama-3-70B-Instruct').deviceMap("auto").shouldQuantize(True).build(adapted=False)
-    ).benchmarkGuard().domainGuard(DIPDomainGuard).rag(
-        RAGBuilder.fromDatasetDisk('ragDataPage.set').vectorRetriever(FacebookDPR()), contextLength= 4096
-    ).build()
-benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
-scores.extend(runTest(testRunDirectory, "llama-3-70B-RAG4kpage", benchmarker, summary))
-del benchmarker._testSubject
-del benchmarker
-del chatbot
-gc.collect()
-torch.cuda.empty_cache()
+# # with RAG 4k page
+# chatbot = ChatBotBuilder.model(
+#     ModelBuilder().modelName('meta-llama/Meta-Llama-3-70B-Instruct').deviceMap("auto").shouldQuantize(True).build(adapted=False)
+#     ).benchmarkGuard().domainGuard(DIPDomainGuard).rag(
+#         RAGBuilder.fromDatasetDisk('ragDataPage.set').vectorRetriever(FacebookDPR()), contextLength= 4096
+#     ).build()
+# benchmarker = Benchmarker(NLPTestSubject(chatbot), questions)
+# scores.extend(runTest(testRunDirectory, "llama-3-70B-RAG4kpage", benchmarker, summary))
+# del benchmarker._testSubject
+# del benchmarker
+# del chatbot
+# gc.collect()
+# torch.cuda.empty_cache()
 
 
 print(scores)
