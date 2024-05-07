@@ -1,0 +1,58 @@
+{
+    "GPT-3.5-Turbo": {
+        "scores": [
+            18,
+            14,
+            15
+        ],
+        "average": 0.6811594202898551
+    },
+    "GPT-3.5-Turbo-RAG2kparagraph": {
+        "scores": [
+            14,
+            10,
+            16
+        ],
+        "average": 0.5797101449275363
+    },
+    "GPT-3.5-Turbo-RAG2kpage": {
+        "scores": [
+            17,
+            18,
+            15
+        ],
+        "average": 0.7246376811594203
+    },
+    "GPT-3.5-Turbo-RAG4kparagraph": {
+        "scores": [
+            12,
+            14,
+            14
+        ],
+        "average": 0.5797101449275363
+    },
+    "GPT-3.5-Turbo-RAG4kpage": {
+        "scores": [
+            14,
+            12,
+            14
+        ],
+        "average": 0.5797101449275363
+    },
+    "GPT-3.5-Turbo-RAG8kparagraph": {
+        "scores": [
+            13,
+            11,
+            10
+        ],
+        "average": 0.49275362318840576
+    },
+    "GPT-3.5-Turbo-RAG8kpage": {
+        "scores": [
+            14,
+            12,
+            14
+        ],
+        "average": 0.5797101449275363
+    }
+}
