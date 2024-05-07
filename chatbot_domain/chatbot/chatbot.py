@@ -160,7 +160,7 @@ class ModelChatbot(ChatBot):
         return self.model.name.split('/')[-1]
     
     def _askConversation(self, question: Conversation) -> Conversation:
-        return self.pipeline([question], max_new_tokens = 1024)
+        return self.pipeline([question], max_new_tokens = 1024, temperature = 0.7)
     
     def _askQuestion(self, question: str) -> str:
         conversation = Conversation(question)
