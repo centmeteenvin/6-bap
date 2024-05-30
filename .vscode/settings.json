@@ -2,7 +2,13 @@
     "cSpell.words": [
         "Mixtral",
         "photopic",
+        "pypdf",
         "reprompt",
         "Reprompting"
-    ]
+    ],
+    "python.testing.pytestArgs": [
+        "test",
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
 }
