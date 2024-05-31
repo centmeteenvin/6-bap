@@ -2,9 +2,10 @@ from typing import Hashable
 from bs4 import BeautifulSoup
 import requests
 import urllib.request
-
-from rag_chatbot import logger
 from rag_chatbot.text_source.text_source import Reference, TextSource
+import logging
+logger = logging.getLogger(__name__)
+
 class HTMLReference(Reference):
     """This class defines the reference for html sources"""
     def __init__(self, url: str) -> None:
