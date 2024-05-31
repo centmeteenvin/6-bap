@@ -1,3 +1,4 @@
+from typing import Hashable
 from .text_source import Reference, TextSource
 from pypdf import PdfReader
 import os
@@ -37,3 +38,7 @@ class PDFTextSource(TextSource):
             reference = PDFReference(self.filePath, page.page_number)
             output.append((text, reference))
         return output
+    
+    @property
+    def id(self) -> Hashable:
+        return hash(self.filePath)

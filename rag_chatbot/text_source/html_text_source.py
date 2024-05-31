@@ -1,3 +1,4 @@
+from typing import Hashable
 from bs4 import BeautifulSoup
 import requests
 import urllib.request
@@ -54,3 +55,9 @@ class HTMLTextSource(TextSource):
         except Exception as e:
             logger.error("An exception occurred while fetching html page text")
             raise e
+        
+    @property
+    def id(self) -> Hashable:
+        return hash(
+            hash(self.host) + sum([hash(path) for path in self.paths])
+        )
