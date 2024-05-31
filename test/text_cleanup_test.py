@@ -23,3 +23,4 @@ def testTextCleanup():
 def testTextCleanupEntirePipeline():
     cleanup = TextCleanup([TrimTextTransformer(), AlphaNumericalTextTransformer()])
     assert cleanup.process('\n\n   foo\br2434$   ') == "foor2434$"
+

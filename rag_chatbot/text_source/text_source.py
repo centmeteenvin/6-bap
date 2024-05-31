@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Hashable
 
 class Reference(ABC):
     """This abstract class provides a reference for each possible text excerpt"""
@@ -13,4 +14,10 @@ class TextSource(ABC):
     @abstractmethod
     def text(self) -> list[tuple[str, Reference]]:
         """This property returns the raw text of the text input as a list of tuples"""
+        pass
+
+    @property
+    @abstractmethod
+    def id(self) -> Hashable:
+        """Returns a unique identifier of the object, is needed for caching expensive operations"""
         pass

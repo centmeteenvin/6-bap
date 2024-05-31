@@ -17,6 +17,8 @@ class PDFReference(Reference):
 PDF source: {self.documentPath}
 Page: {self.page}
 """
+    def __repr__(self) -> str:
+        return self.get()
 
 class PDFTextSource(TextSource):
     def __init__(self, filePath: str) -> None:
