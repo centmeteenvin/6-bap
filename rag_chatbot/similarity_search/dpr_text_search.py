@@ -1,7 +1,16 @@
 from rag_chatbot.similarity_search.text_search import TextSearch
 from rag_chatbot.text_cleanup.text_cleanup import TextCleanup
 from rag_chatbot.text_source.text_source import TextSource
+import numpy
 
+class DPREncoder():
+    """This class contains two encoders, one to encode a question into embeddings and one for the context"""
+
+    def __init__(self) -> None:
+        """Loads the necessary encoders. One thing that is needed is that the hugging face token is passed"""
+        
+    def encode(self, data: str) -> numpy.ndarray:
+        
 
 class DPRTextSearch(TextSearch):
     """
