@@ -1,3 +1,4 @@
+import hashlib
 from typing import Hashable
 from bs4 import BeautifulSoup
 import requests
@@ -59,6 +60,4 @@ class HTMLTextSource(TextSource):
         
     @property
     def id(self) -> Hashable:
-        return hash(
-            hash(self.host) + sum([hash(path) for path in self.paths])
-        )
+        return hashlib.md5((self.host + "".join(self.paths)).encode()).hexdigest()

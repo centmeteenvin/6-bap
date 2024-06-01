@@ -7,7 +7,7 @@ class TrimTextTransformer(TextTransformer):
     """Removes all leading and trailing whitespace"""
     def transform(self, text: str) -> str:
         return text.strip()
-    
+
 class AlphaNumericalTextTransformer(TextTransformer):
     """Removes all none alpha numerical characters from the string, it does retain punctuation"""
     def transform(self, text: str) -> str:

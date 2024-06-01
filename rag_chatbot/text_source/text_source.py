@@ -6,7 +6,8 @@ class Reference(ABC):
     @abstractmethod
     def get(self) -> str:
         """Returns the string representation of the source"""
-
+        pass
+    
 class TextSource(ABC):
     """This is the abstract base class for every type of text source. Concrete implementations should overwrite the text property"""
 
@@ -18,6 +19,6 @@ class TextSource(ABC):
 
     @property
     @abstractmethod
-    def id(self) -> Hashable:
+    def id(self) -> str:
         """Returns a unique identifier of the object, is needed for caching expensive operations"""
         pass

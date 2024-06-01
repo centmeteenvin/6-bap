@@ -1,3 +1,4 @@
+import pathlib
 from rag_chatbot.text_source.html_text_source import HTMLTextSource
 from rag_chatbot.text_source.pdf_text_source import PDFTextSource
 import logging
@@ -37,3 +38,29 @@ def testHTMLTextExtraction(caplog):
     assert text[0][1].url == url+paths[0], "reference urls must match"
     assert "attention" in text[0][0], "I hope the word attention is present in the text extraction of the attention is all you need paper :)"
 
+def testTextSourceId():
+    textSourceHashPath = pathlib.Path("./test/resources/text_source_hashes")
+    if not textSourceHashPath.exists():
+        textSourceHashPath.mkdir(parents=True)
+    
+    pdfSource = PDFTextSource('./test/resources/attention_is_all_you_need.pdf')
+    pdfSourceHashPath = textSourceHashPath / "pdf_source_hash.txt"
+    htmlSource = HTMLTextSource("https://kokodobu.org", "/")
+    htmlSourceHashPath = textSourceHashPath / "html_source_hash.txt"
+    if len(list(textSourceHashPath.iterdir())) == 0:
+        with open(pdfSourceHashPath, 'w') as f:
+            f.write(pdfSource.id)
+        with open(htmlSourceHashPath, 'w') as f:
+            f.write(htmlSource.id)
+        assert False, "This test had no correct setup and must be run at least twice"
+
+    with open(pdfSourceHashPath, 'r') as f:
+        pdfSourceId = f.read()
+    with open(htmlSourceHashPath, 'r') as f:
+        htmlSourceId = f.read()
+
+    assert pdfSourceId == pdfSource.id
+    assert htmlSourceId == htmlSource.id
+    assert pdfSourceId != htmlSourceId
+    
+    

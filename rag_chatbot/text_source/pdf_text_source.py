@@ -1,3 +1,4 @@
+import hashlib
 from typing import Hashable
 from .text_source import Reference, TextSource
 from pypdf import PdfReader
@@ -41,4 +42,4 @@ class PDFTextSource(TextSource):
     
     @property
     def id(self) -> Hashable:
-        return hash(self.filePath)
+        return hashlib.md5(self.filePath.encode()).hexdigest()
