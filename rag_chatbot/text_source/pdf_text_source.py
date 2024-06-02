@@ -19,6 +19,12 @@ class PDFReference(Reference):
 PDF source: {self.documentPath}
 Page: {self.page}
 """
+    def asDict(self) -> str:
+        return {
+            "source file": self.documentPath,
+            "page number": self.page,
+        }
+
     def __repr__(self) -> str:
         return self.get()
 

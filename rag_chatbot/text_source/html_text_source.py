@@ -16,6 +16,11 @@ class HTMLReference(Reference):
     def get(self) -> str:
         return f"URL: {self.url}"
     
+    def asDict(self) -> str:
+        return {
+            "URL": self.url
+        }
+    
 
 class HTMLTextSource(TextSource):
     """

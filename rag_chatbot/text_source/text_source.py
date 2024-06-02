@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import Hashable
 
 class Reference(ABC):
     """This abstract class provides a reference for each possible text excerpt"""
@@ -8,6 +7,11 @@ class Reference(ABC):
         """Returns the string representation of the source"""
         pass
     
+    @abstractmethod
+    def asDict(self) -> str:
+        """Return a dictionary representation of the reference to easy persistence"""
+        pass
+
 class TextSource(ABC):
     """This is the abstract base class for every type of text source. Concrete implementations should overwrite the text property"""
 

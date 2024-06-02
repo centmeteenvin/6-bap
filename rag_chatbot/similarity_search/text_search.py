@@ -29,6 +29,7 @@ class TextSearch(ABC):
 
     @property
     def text(self) -> list[tuple[str, Reference]]:
+        """This property returns the text from the text source but first it processes it with the given text cleanup"""
         if self._textCache is None:
             self._textCache = []
             for text, reference in self.source.text:
