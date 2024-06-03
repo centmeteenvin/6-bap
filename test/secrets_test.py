@@ -7,3 +7,8 @@ def test_hf_token():
     assert Secrets.hf_token() == "foo"
     if current_hf_variable is not None:
         os.environ[hf_token_env_name] = current_hf_variable
+
+def test_getenv():
+    os.environ['FOO'] = 'foo'
+    assert Secrets._getEnv('FOO') == 'foo'
+    os.environ['FOO'] = ''
