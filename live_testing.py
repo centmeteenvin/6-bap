@@ -1,7 +1,7 @@
-from openai import OpenAI
+from anthropic import Anthropic
 
-from rag_chatbot.chatbot.openai_chatbot import OpenAIChatbot
+from rag_chatbot.chatbot.anthropic_chatbot import AnthropicChatbot, AnthropicModels
 from rag_chatbot.secrets.secrets import Secrets
-
-chatbot = OpenAIChatbot('gpt-3.5-turbo-16k')
+print(AnthropicModels.CLAUDE_3_HAIKU.value)
+chatbot = AnthropicChatbot(AnthropicModels.CLAUDE_3_HAIKU.value)
 chatbot.startConversation()
