@@ -2,8 +2,9 @@ from math import floor
 from transformers.pipelines import Conversation
 from rag_chatbot.similarity_search import TextSearch, QueryResult
 
+from .augment import PromptAugment
 
-class RAGAugment:
+class RAGAugment(PromptAugment):
     """
     This is an augmentation you can apply to any chatbot. The
     augmentConversation function can be called to augment to conversational
@@ -11,6 +12,7 @@ class RAGAugment:
     is necessary for this functionality.
     """
     def __init__(self, textSearch : TextSearch, numberOfTokens: int = 1024) -> None:
+        super().__init__()
         assert isinstance(textSearch, TextSearch)
         assert numberOfTokens > 0
         self.search = textSearch
@@ -18,7 +20,7 @@ class RAGAugment:
         self.initialNGuess = 1 # We try to find the amount of results we need to ask from the search the reach the numberOfTokens
 
 
-    def augmentPrompt(self, conversation: Conversation) ->tuple[Conversation, list[QueryResult]]:
+    def augmentConversation(self, conversation: Conversation) ->tuple[Conversation, list[QueryResult]]:
         """
         Insert a system 'prompt' containing extra information equalling the
         amount of tokens specified in the constructor. We always try to fill the

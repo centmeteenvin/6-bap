@@ -1,15 +1,15 @@
 import logging
 from transformers.pipelines import Conversation
-from rag_chatbot.chatbot.chatbot import Chatbot
 from openai import OpenAI
 
+from rag_chatbot.chatbot.resolver import Resolver
 from rag_chatbot.secrets.secrets import Secrets
 
 # Disable the http messages
 httpx_logger = logging.getLogger("httpx")
 httpx_logger.setLevel(logging.WARNING)
 
-class OpenAIChatbot(Chatbot):
+class OpenAIResolver(Resolver):
     def __init__(self, modelName: str) -> None:
         super().__init__(modelName)
         self.modelName = modelName
@@ -18,7 +18,7 @@ class OpenAIChatbot(Chatbot):
         )
         assert self.modelName in [model.id for model in self.client.models.list().data]
 
-    def _askConversation(self, conversation: Conversation) -> Conversation:
+    def resolveConversation(self, conversation: Conversation) -> Conversation:
         response = self.client.chat.completions.create(
             model = self.modelName,
             messages = conversation.messages
