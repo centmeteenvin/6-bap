@@ -8,6 +8,8 @@ class Resolver(ABC):
         assert isinstance(name, str), "The name must be a string"
         assert len(name) >= 4, "The name must at least contain 4 characters"
         self.name = name
+        self.supportsSystemRole = False
+        """Set this to True if the resolver allows for the system role in a conversation."""
 
     @abstractmethod
     def resolveConversation(self, conversation: Conversation) -> Conversation:

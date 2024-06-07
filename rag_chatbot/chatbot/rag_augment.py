@@ -1,5 +1,6 @@
 from math import floor
 from transformers.pipelines import Conversation
+from rag_chatbot.chatbot.resolver import Resolver
 from rag_chatbot.similarity_search import TextSearch, QueryResult
 
 from .augment import PromptAugment
@@ -11,13 +12,14 @@ class RAGAugment(PromptAugment):
     object and append some context found in the textSource. A TextSearch Object
     is necessary for this functionality.
     """
-    def __init__(self, textSearch : TextSearch, numberOfTokens: int = 1024) -> None:
+    def __init__(self, textSearch : TextSearch, resolver : Resolver, numberOfTokens: int = 1024) -> None:
         super().__init__()
         assert isinstance(textSearch, TextSearch)
         assert numberOfTokens > 0
         self.search = textSearch
         self.numberOfTokens = numberOfTokens
         self.initialNGuess = 1 # We try to find the amount of results we need to ask from the search the reach the numberOfTokens
+        self.resolver = resolver
 
 
     def augmentConversation(self, conversation: Conversation) ->tuple[Conversation, list[QueryResult]]:
@@ -40,12 +42,18 @@ class RAGAugment(PromptAugment):
                 break
             n = n*2
 
-        self.initialNGuess = floor(0.75 * n) # If we have reached the desired number of prompts we can update our guess but we assume dat we overestimated a bit.
+        self.initialNGuess = max(floor(0.75 * n), 1) # If we have reached the desired number of prompts we can update our guess but we assume dat we overestimated a bit.
         context = 'The following information was found:\n'
         for result in currentSearch:
             context += f"From {result.reference.get} the following information was found:\n{result.text}"
         
-        conversation.messages.insert(-1, {'role':'system', 'content': context})
+        if self.resolver.supportsSystemRole:
+            conversation.messages.insert(-1, {'role':'system', 'content': context})
+        else:
+            # Some resolvers that don't support the the role are very nitpick about alternating roles, therefore we add an additional assistant in this case.
+            conversation.append_response('Can you give me some additional information first?')
+            conversation.add_user_input(context)
+
         return conversation, currentSearch
         
                 

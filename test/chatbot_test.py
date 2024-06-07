@@ -1,12 +1,12 @@
 from typing import Any
 import pytest
 from transformers.pipelines import Conversation
-from rag_chatbot.chatbot.anthropic_chatbot import AnthropicResolver, AnthropicModels
+from rag_chatbot.chatbot.anthropic_resolver import AnthropicResolver, AnthropicModels
 from rag_chatbot.chatbot.augment import PromptAugment
 from rag_chatbot.chatbot.chatbot import Chatbot
 from shutil import get_terminal_size
 
-from rag_chatbot.chatbot.openai_chatbot import OpenAIResolver
+from rag_chatbot.chatbot.openai_resolver import OpenAIResolver
 from rag_chatbot.chatbot.rag_augment import RAGAugment
 from rag_chatbot.chatbot.resolver import Resolver
 from rag_chatbot.similarity_search.text_search import QueryResult, TextSearch

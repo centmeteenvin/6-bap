@@ -16,6 +16,7 @@ class OpenAIResolver(Resolver):
         self.client = OpenAI(
             api_key=Secrets.openAIKey()
         )
+        self.supportsSystemRole = True
         assert self.modelName in [model.id for model in self.client.models.list().data]
 
     def resolveConversation(self, conversation: Conversation) -> Conversation:

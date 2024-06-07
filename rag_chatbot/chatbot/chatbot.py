@@ -1,14 +1,20 @@
 """This file contains the abstract baseclass / interface of a chatbot"""
 
 from transformers.pipelines import Conversation
-from shutil import get_terminal_size
 
 from rag_chatbot.chatbot.augment import PromptAugment
+from rag_chatbot.chatbot.chat_formatter import ChatFormatter
 from rag_chatbot.chatbot.resolver import Resolver
+from rag_chatbot.chatbot.terminal_formatter import TerminalFormatter
 
 
 class Chatbot:
-    def __init__(self, resolver: Resolver, augments: list[PromptAugment] = []) -> None:
+    def __init__(
+        self,
+        resolver: Resolver,
+        formatter: ChatFormatter = TerminalFormatter(),
+        augments: list[PromptAugment] = [],
+    ) -> None:
         super().__init__()
         assert isinstance(
             resolver, Resolver
@@ -20,8 +26,11 @@ class Chatbot:
             assert isinstance(
                 augment, PromptAugment
             ), f"Each augment in the list must be a PromptAugment not a {type(augment)}"
+
+        assert isinstance(formatter, ChatFormatter)
         self.resolver = resolver
         self.augments = augments
+        self.formatter = formatter
         self.result = []
         """This holds the extra data that occurs when an Augment augments a prompt"""
 
@@ -31,34 +40,28 @@ class Chatbot:
         self.result = []
         for augment in self.augments:
             conversation, result = augment.augmentConversation(conversation)
-            self.result.append(result)
-        return self.resolver.resolveConversation(conversation) # TODO implement prompt augments.
+            if self.result is not None:
+                self.result.append(result)
+        return self.resolver.resolveConversation(
+            conversation
+        )  # TODO implement prompt augments.
 
     def askSingleQuestion(self, question: str) -> str:
         conversation = Conversation(question)
         return self._converse(conversation).messages[-1]["content"]
 
     def startConversation(self) -> str:
-        print(
-            f"""
-{get_terminal_size().columns * '='}
-Hello, you are now chatting with {self.resolver.name}. Type [exit] to quit the conversation."""
-        )
-        userInput = input("> ")
+        self.formatter.startOfChat(self.resolver.name)
+        userInput = self.formatter.getQuestion()
         conversation = Conversation(userInput)
-        while userInput != "exit":
+        while userInput is not None:
             conversation = self._converse(conversation)
             response = conversation.messages[-1]["content"]
-            print(
-                f"""
-{self.resolver.name}: {response}
-{get_terminal_size().columns * '-'}"""
-            )
-            userInput = input("> ")
+            self.formatter.returnResponse(response)
+            self.formatter.processAdditionalResults(self.result)
+
+            userInput = self.formatter.getQuestion()
             conversation.add_user_input(userInput)
-        print(
-            f"""
-That was a nice conversation.
-{get_terminal_size().columns * '='}
-"""
-        )
+        self.formatter.endOfChat()
+
+
