@@ -16,6 +16,7 @@ class RAGAugment(PromptAugment):
         super().__init__()
         assert isinstance(textSearch, TextSearch)
         assert numberOfTokens > 0
+        assert isinstance(resolver, Resolver)
         self.search = textSearch
         self.numberOfTokens = numberOfTokens
         self.initialNGuess = 1 # We try to find the amount of results we need to ask from the search the reach the numberOfTokens

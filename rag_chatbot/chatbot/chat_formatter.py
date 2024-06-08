@@ -1,6 +1,6 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-
+from .types import Stream
 
 
 class ChatFormatter(ABC):
@@ -35,4 +35,11 @@ class ChatFormatter(ABC):
     @abstractmethod
     def endOfChat(self) -> None:
         """This function is called when the chat has ended"""
+        pass
+
+class StreamChatFormatter(ChatFormatter):
+    """This class should be able to handle stream output"""
+    @abstractmethod
+    def returnResponseStream(self, response: Stream) -> None:
+        """"be able to handle the stream object, Note that you MUST process the ENTIRE generator"""
         pass

@@ -1,9 +1,10 @@
 from shutil import get_terminal_size
-from rag_chatbot.chatbot.chat_formatter import ChatFormatter
+from rag_chatbot.chatbot.chat_formatter import  StreamChatFormatter
+from rag_chatbot.chatbot.types import Stream
 from rag_chatbot.similarity_search.text_search import QueryResult
 
 
-class TerminalFormatter(ChatFormatter):
+class TerminalFormatter(StreamChatFormatter):
     """A simple formatter that uses the terminal as the main IO source"""
 
     def startOfChat(self, name: str) -> None:
@@ -44,3 +45,7 @@ That was a nice conversation.
 {get_terminal_size().columns * '='}
 """
         )
+
+    def returnResponseStream(self, response: Stream) -> None:
+        for bit in response:
+            print(bit, end='')

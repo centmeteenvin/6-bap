@@ -1,14 +1,15 @@
-from typing import Any
+from typing import Any, Generator
 import pytest
 from transformers.pipelines import Conversation
 from rag_chatbot.chatbot.anthropic_resolver import AnthropicResolver, AnthropicModels
 from rag_chatbot.chatbot.augment import PromptAugment
-from rag_chatbot.chatbot.chatbot import Chatbot
+from rag_chatbot.chatbot.chat_formatter import StreamChatFormatter
+from rag_chatbot.chatbot.chatbot import Chatbot, StreamingChatbot
 from shutil import get_terminal_size
 
 from rag_chatbot.chatbot.openai_resolver import OpenAIResolver
 from rag_chatbot.chatbot.rag_augment import RAGAugment
-from rag_chatbot.chatbot.resolver import Resolver
+from rag_chatbot.chatbot.resolver import Resolver, StreamResolver
 from rag_chatbot.similarity_search.text_search import QueryResult, TextSearch
 from rag_chatbot.text_cleanup.text_cleanup import TextCleanup
 from rag_chatbot.text_source.text_source import Reference, TextSource
@@ -17,6 +18,7 @@ from rag_chatbot.text_source.text_source import Reference, TextSource
 class FooResolver(Resolver):
     def __init__(self, name: str = "footloose") -> None:
         super().__init__(name)
+        self.supportsSystemRole = True
 
     def resolveConversation(self, conversation: Conversation) -> Conversation:
         conversation.append_response("foo")
@@ -138,15 +140,17 @@ class FooTextSearch(TextSearch):
 
 def test_ragAugment():
     with pytest.raises(AssertionError):
-        RAGAugment(None, 1024)
+        RAGAugment(None, FooResolver(), 1024)
 
     source = FooTextSource()
     cleanup = TextCleanup([])
     search = FooTextSearch(source, cleanup)
     with pytest.raises(AssertionError):
-        RAGAugment(search, 0)
+        RAGAugment(search, None, 1223)
+    with pytest.raises(AssertionError):
+        RAGAugment(search, FooResolver(), 0)
 
-    augment = RAGAugment(search, 1024)
+    augment = RAGAugment(search, FooResolver(),1024)
     conversation, results = augment.augmentConversation(Conversation("foo"))
     assert conversation.messages[-1]['role'] == 'user'
     assert conversation.messages[-1]['content'] == 'foo'
@@ -154,3 +158,72 @@ def test_ragAugment():
     assert len(conversation.messages[-2]['content']) >= (1024 * 0.75)
     for result in results:
         assert isinstance(result, QueryResult)
+
+class FooStreamingResolver(StreamResolver):
+    def _resolveStreamConversation(self, conversation: Conversation) -> Generator[str, None, None]:
+        for i in range(10):
+            yield str(i)
+    def resolveConversation(self, conversation: Conversation) -> Conversation:
+        pass
+
+def test_streaming_resolver():
+    resolver = FooStreamingResolver('footloose')
+    assert resolver.conversation is None
+    resolved = resolver.resolveStreamConversation(Conversation())
+    for result, expectation in zip(resolved, [str(i) for i in range(10)]):
+        assert result == expectation
+    assert resolver.conversation.messages[-1]['content'] == ''.join([str(i) for i in range(10)])
+
+class FooFormatter(StreamChatFormatter):
+    def __init__(self) -> None:
+        super().__init__()
+        self.SoC = False
+        self.gQ = False
+        self.PaR = False
+        self.RR = False
+        self.EoC = False
+        self.RRS = False
+
+    def startOfChat(self, name: str) -> None:
+        self.SoC = True
+        pass
+
+    def getQuestion(self) -> str | None:
+        if not self.gQ:
+            self.gQ = True
+            return ''
+        return None
+
+    def returnResponse(self, response: str) -> None:
+        self.RR = True
+        pass
+
+    def processAdditionalResults(self, results: list) -> None:
+        self.PaR = True
+        pass
+
+    def endOfChat(self) -> None:
+        self.EoC = True
+        pass
+
+    def returnResponseStream(self, response: Generator[str, None, None]) -> None:
+        assert isinstance(response, Generator)
+        self.RRS = True
+        for _ in response:
+            pass
+        pass
+
+def test_streaming_chatbot_conversation():
+    formatter = FooFormatter()
+    with pytest.raises(AssertionError):
+        StreamingChatbot(FooResolver(), formatter)
+
+    chatbot = StreamingChatbot(FooStreamingResolver("footloose"), formatter)
+    chatbot.streamConversation()
+    assert formatter.SoC
+    assert formatter.gQ
+    assert not formatter.RR
+    assert formatter.PaR
+    assert formatter.EoC
+    assert formatter.RRS
+    
