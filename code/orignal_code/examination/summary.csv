@@ -1,0 +1,5 @@
+,Model Naam,Minimum Score,Maximum Score,Gemiddelde Score,Minimum Test Score,Maximum Test Score
+0,GPT-4-Turbo,7.0,9.25,8.25,7.75,9.0
+1,Haiku,4.5,9.0,7.0,5.5,8.0
+2,Mistral-FT,2.75,6.0,4.5,3.0,5.5
+3,Mixtral-8x7B,2.75,7.0,4.5,3.0,5.75
