@@ -20,7 +20,6 @@
 # chatbot = Chatbot(resolver, augments=[augment])
 # chatbot.startConversation()
 
-from urllib import response
 from openai import OpenAI, Stream
 from openai.types.chat.chat_completion_chunk import ChatCompletionChunk
 from rag_chatbot.secrets import Secrets

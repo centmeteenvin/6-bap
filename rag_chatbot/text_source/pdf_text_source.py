@@ -8,8 +8,8 @@ class PDFReference(Reference):
     """A reference to a pdf file"""
     def __init__(self, documentPath :str, page : int) -> None:
         super().__init__()
-        assert os.path.exists(documentPath), "The document path does not exist"
-        assert os.path.isabs(documentPath), "The document path is not absolute"
+        assert os.path.exists(documentPath), f"The document path does not exist {documentPath}"
+        assert os.path.isabs(documentPath), f"The document path is not absolute {documentPath}"
         assert page >= 0, "The page number is smaller then 0"
         self.documentPath = documentPath
         self.page = page
@@ -31,8 +31,8 @@ Page: {self.page}
 class PDFTextSource(TextSource):
     def __init__(self, filePath: str) -> None:
         super().__init__()
-        assert os.path.exists(filePath), "The file should exist"
-        assert os.path.isfile(filePath), "The file should not be a dir"
+        assert os.path.exists(filePath), f"The file should exist: {filePath}"
+        assert os.path.isfile(filePath), f"The file should not be a dir: {filePath}"
         self.filePath = os.path.abspath(filePath)
 
 
