@@ -1,0 +1,110 @@
+Mini demo -> Hoe werkt dit? -> Onderzoeksvragen: Hoe kunnen modellen leren, hoe presteren de verschillende methodes t.o.v. elkaar.
+-> Kort overzicht:
+	-> Hoe kunnen modellen leren
+	-> Implementatie
+	-> Evaluatievorm
+	-> Resultaten
+
+-> Hoe kunnen modellen leren?
+	-> methode 1: trainen zelf -> duurt lang, valt buiten scope
+	-> methode 2: kleine traing
+	-> methode 3: RAG
+	-> methode 2 en 3 vergelijken
+	-> hypothese stellen.
+-> Implementatie
+	-> Finetuning in de cloud en waarom, trainen op elke zin in de bron
+	-> RAG:
+		-> probleem van similarity search
+		-> DPR oplossing
+		-> Faiss index
+		-> kort over n-gram
+		-> page vs paragraph strategy
+-> Hoe gaan we deze modellen vergelijken
+	-> Cursus DIP
+	-> Meerkeuzetest
+		-> Automatiseerbaar
+		-> Zero-shot
+		-> CoT
+	-> Handmatige verbetering (kan als verrassing gehouden worden)
+-> Resultaten
+
+BANG is present
+be clear about the results.
+Be clear about what I did
+
+-> Korte voorstelling
+-> Mini demo:
+	-> Vrije tijd codeer ik graag -> Vraag GPT -> Code faalt
+	-> Op website AI chatbot -> zelfde vraag -> korte correct code met referenties
+	-> Hoe kan tweede chatbot wel correct antwoorden
+-> Kadering onderzoek:
+	-> Dat is wat ik ga onderzoeken
+	-> Specifieker:
+		-> Welke methodes zijn er 
+		-> Hoe vergelijken deze met elkaar
+-> Welke methodes zijn er:
+	-> Training:
+		-> Koppelen aan voorbeeld trainingsstap absorbeert kennis
+	-> Finetuning:
+		-> Efficiënter trainen
+	-> Retrieval Augmented generation:
+		-> Koppel aan voorbeeld door te zeggen dat kapa.ai ook ChatGPT gebruikt
+		-> Korte uitleg over informatie in context window
+	-> Wat verwachten we van elke methode:
+		-> Training:
+			-> Te lang maar vooral data limited
+		-> Finetuning:
+			-> Grote opstartkost maar kennis is inherent
+		-> RAG:
+			-> Dynamische kennisbron
+			-> Kennis is 'vers'
+			-> Plug & play
+
+-> Implementatie:
+	-> General chat model:
+		-> Vraag -> Blackbox -> Antwoord
+	-> Finetuning:
+		-> Klein performant model -> Mistral
+		-> Nog steeds training in de cloud
+	-> RAG:
+		-> Prompt onderscheppen
+		-> Vind relevante passages
+		-> voeg toe aan prompt
+		-> Zoom in op passage retrieval:
+			-> Vector encoding
+			-> paragraaf vs pagina
+
+-> Evaluatie:
+	-> Use case:
+		-> DIP cursus
+		-> Als assistent voor studenten
+	-> Test vorm
+		-> Multiple choice
+			-> Automatiseerbaar
+			-> Veel data snel
+		-> Testen op
+			-> Kennis
+			-> Deductie
+			-> Domeingerichtheid
+			-> Suggestieresistent
+-> Resultaten:
+	-> Resultaten Luna, Thomas
+	-> Resultaat Mistral 7B <> Finetuning:
+		-> Score en inferentie tijd
+		-> Suboptimale methode
+	-> Resultaten ChatGPT met RAG:
+		-> Optimale strategie gevonden
+	-> Resultaten alle modellen:
+		-> Haiku optimaal
+	-> Toch van naderbij bekijken:
+		-> Wel wat speling op de antwoorden
+-> Conclusies:
+	-> RAG werkt maar is gevoelig
+	-> Finetuning werkt niet 
+	-> Larger models are better
+	-> Building an optimal system:
+		-> Choose a large base model
+		-> Add a RAG system page 2k
+		-> Optionally finetune the model to work with RAG structure
+
+		

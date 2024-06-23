@@ -33,6 +33,8 @@
 - [Paper](./paper/):<br>
     Contains the different versions of the paper.
     - [Final Paper](./paper/Bachelorproef_Finaal.pdf)
+- [Presentation](./presentation/):<br>
+    Contains the presentation used for the defense
 - [Reports](./reports/): <br>
     Progress reports.
 
